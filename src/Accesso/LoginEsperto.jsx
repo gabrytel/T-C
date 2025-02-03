@@ -4,7 +4,7 @@ function LoginEsperto() {
   return (
     <>
        
-        <h2>Pagina di Login</h2>
+        <h4>Pagina di Login</h4>
     </>
   );
 }

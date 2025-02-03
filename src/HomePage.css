@@ -1,0 +1,92 @@
+.login-button
+{
+    position: static;
+    background-color: #4CAF50;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 0px;
+    background: linear-gradient(to right,rgb(0, 221, 255), rgb(51, 183, 51));
+}
+
+h1
+{
+    text-align: center;
+    font-size: 60px;
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -110px;
+    margin-left: 0%;
+}
+
+h2
+{
+    text-align: center;
+    font-size: 30px;
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: -25px;
+    margin-left: 0%;
+    font-weight: lighter;
+}
+
+.logo 
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 440px;
+    height:459px;
+    margin-top: -130px;
+
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Distribuisce gli elementi al centro orizzontalmente */
+    align-items: center;     /* Allinea verticalmente al centro */
+    gap: 400px;               /* Spazio tra gli elementi (opzionale) */
+    margin-top: 100px;        /* Margine superiore per distanziare il gruppo dal resto della pagina */
+  }
+  
+  /* Stili comuni per i tre elementi */
+  .ChiSiamo,
+  .Esperti,
+  .Contatti 
+  {
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: lighter;
+    border: 1px solid #000;
+    padding: 10px;  /* Spazio interno per un aspetto migliore */
+  }
+
+  .ChiSiamo
+  {
+    color: #00a906;
+    border : 2px solid #00a906;
+    background-color: #ffffff;
+  }
+
+  .Esperti
+  {
+    color: #11b5b8;
+    border : 2px solid #11b5b8;
+    background-color: #ffffff;
+  }
+ 
+  .Contatti
+  {
+    color: #00a906;
+    border : 2px solid #00a906;
+    background-color: #ffffff;
+  }
