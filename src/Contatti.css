@@ -1,8 +1,38 @@
 .logoContatti 
-{
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  {
+    position: static;
+    display: block;
+    margin-left: 1200px;
+    width: 150px;
+    height:155px;
+    margin-top: -20px;
+  }
+
+  .ContattiPage 
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -170px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+  }
+
+  .ContattiText
+  {
+    position: static;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Allinea a sinistra */
+    justify-content: center;
+    margin-top: 0px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    width: 100%; /* Assicura che il contenitore prenda tutta la larghezza */
+  }
+
+  

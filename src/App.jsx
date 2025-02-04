@@ -5,6 +5,7 @@ import Login from './Accesso/Login'
 import LoginEsperto from './Accesso/LoginEsperto'
 import ChiSiamo from './ChiSiamo'
 import Contatti from './Contatti'
+import Esperti from './Esperti'
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
 
@@ -28,6 +29,10 @@ function App()
 
         {/*"/contatti" è la pagina di contatti*/}
         <Route path="/contatti" element={<Contatti />} />
+
+        {/*"/esperti" è la pagina di esperti*/}
+        <Route path="/esperti" element={<Esperti />} />
+        
       </Routes>
     
   )
