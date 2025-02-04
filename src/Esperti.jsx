@@ -19,15 +19,17 @@ function Esperti() {
         Il nostro team di esperti è composto da professionisti qualificati e preparati, pronti ad aiutarti a raggiungere i tuoi obiettivi di benessere.
         </div>
 
-        <div>
+        
+           <div className='NomeCoach'><p><strong>Marco Leone: COACH/PERSONAL TRAINER </strong></p></div>
+
+           <div>
             <img src = "/coach.png" alt="coach" 
             className='logoCoach'/>
-        </div>
+           </div>
 
-        <div className='Coach'>
-            <p><strong>Marco Leone: COACH/PERSONAL TRAINER </strong></p>
+           <div className='Coach'>
             
-            <p>
+            <p style={{ marginTop: '40px' }}>
                 
                  <strong>Esperienza:</strong> specializzato in allenamenti funzionali e programmi di fitness personalizzati.
                 
@@ -42,7 +44,56 @@ function Esperti() {
 
         </div>
 
+        <div className='NomeNutrizionista'><p><strong>Anna Costa: NUTRIZIONISTA</strong></p></div>
+        <div>
+            <img src = "/nutrizionista.png" alt="nutrizionista" 
+            className='logoNutrizionista'/>
+        </div>
 
+        <div className='Nutrizionista'>
+            
+            <p style={{ marginTop: '40px' }}>
+                
+                 <strong>Esperienza:</strong> specializzata in alimentazione equilibrata e nutrizione sportiva per il benessere fisico.
+                
+            </p>
+            <p>
+                <strong>Certificazioni:</strong> laurea in scienze della nutrizione, master in nutrizione sportiva e alimentazione.
+            </p>
+            <p>
+                <strong>Descrizione:</strong>  la dr.ssa Costa ti guiderà verso un programma alimentare personalizzato, aiutandoti a raggiungere i tuoi obiettivi di benessere e salute.
+                con una passione per l’alimentazione sana, la dr.ssa Costa ti insegnerà a fare scelte nutrizionali informate e bilanciate.
+            </p>
+
+
+        </div>
+
+        <div className='NomePsicologo'><p><strong>Laura Romano: PSICOLOGA</strong></p></div>
+
+        <div>
+            <img src = "/psicologo.png" alt="psicologo" 
+            className='logoPsicologo'/>
+        </div>
+
+        <div className='Psicologo'>
+            
+            <p style={{ marginTop: '40px' }}>
+                
+                 <strong>Esperienza:</strong> psicoterapia e gestione dello stress per il benessere mentale.
+                
+            </p>
+            <p>
+                <strong>Certificazioni:</strong>  laurea in psicologia, specializzazione in terapia cognitivo-comportamentale.
+            </p>
+            <p>
+                <strong>Descrizione:</strong>  la dr.ssa Romano è specializzata nella gestione dello stress e del benessere mentale. con competenze in terapia cognitivo-comportamentale, la dr.ssa Romani ti aiuterà a gestire le tue emozioni ed a migliorare la tua salute mentale.  
+            </p>
+        </div>
+
+
+
+
+      
             
         </>
         );

@@ -1,12 +1,45 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import './Login.css';
 
 function Login() 
 {
   return (
     <>
+    <div>
+    <img src= "/logo.png" alt="logo"
+    className='logoLogin'/>
+    </div>
+
+    <div className='TastoLoginEsperto'>
     {/*creami un tasto che mi porta alla pagina di login esperto*/}
     <a href="/loginEsperto">Accesso esperto</a>
-    <h3>Pagina di Login</h3>
+    </div>
+
+   
+    <div className="Credenziali">
+          <label htmlFor="email" className="CredenzialiEmail">Email:</label>
+          <input type="email" id="email" className="input-field" aria-label="Email" />
+
+          <label htmlFor="password" className="CredenzialiPassword">Password:</label>
+          <input type="password" id="password" className="input-field" aria-label="Password" />
+    </div>
+
+    <div className='TastoLogin'>
+    {/*creami un tasto che mi porta alla pagina di login*/}
+    <Link to="/pianiCliente">
+      <button className="login-button-cliente">
+        Accedi
+      </button>
+    </Link>
+    </div>
+
+    
+
+    
+   
+
+
    </>
   );
   
