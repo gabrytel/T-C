@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TastoIndietro from './Componenti/TastoIndietro';
 import './Contatti.css';
 
 function Contatti() 
@@ -39,7 +40,8 @@ function Contatti()
             Siamo qui per aiutarti e rendere la tua esperienza la migliore possibile!
           </p>
         </div>
-
+      
+        <TastoIndietro />
     </>
     );
 }

@@ -10,6 +10,7 @@ import PianiCliente from './PianiCliente'
 import Registrazione from './Registrazione'
 import ResetPassword from './ResetPassword'
 
+
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
 
 
@@ -44,6 +45,8 @@ function App()
 
         {/*"/resetPassword" è la pagina di reset password*/}
         <Route path="/resetPassword" element={<ResetPassword />} />
+
+       
 
   
         

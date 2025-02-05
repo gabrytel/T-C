@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import TastoIndietro from '../Componenti/TastoIndietro';
 import './Login.css';
 
 function Login() 
 {
+  
+
   return (
     <>
+    
     <div>
     <img src= "/logo.png" alt="logo"
     className='logoLogin'/>
@@ -50,12 +54,10 @@ function Login()
     </Link>
     </div>
 
-    
-
+    {/* Il tasto indietro viene gestito internamente in TastoIndietro */}
+    <TastoIndietro />
     
    
-
-
    </>
   );
   

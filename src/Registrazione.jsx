@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './Registrazione.css';
+import TastoIndietro from './Componenti/TastoIndietro';
 
 function Registrazione()
 {
@@ -76,10 +77,13 @@ function Registrazione()
     </div>
 
     <div className="BottoneDatiRegistrazione">
-           
+      <Link to="/login">   
       <button type="submit" className="button-DatiRegistrazione">Invia</button>
+      </Link>
            
     </div>
+
+    <TastoIndietro />
 
     </>
   );

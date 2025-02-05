@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './ResetPassword.css';
+import TastoIndietro from './Componenti/TastoIndietro';
 
 function ResetPassword() 
 {
@@ -11,19 +12,31 @@ function ResetPassword()
             className='logoResetPassword'/>
         </div>
 
-        <div className="RecuperaPassword">
-          <label htmlFor="nuova password" className="NuovaPassword">Inserisci nuova password:</label>
-          <input type="nuova password" id="nuova password" className="input-NuovaPassword" aria-label="nuova password" />
+        <div className='TitoloPiattaformaResetPassword'>
+        <p>
+            <strong> 
+                Piano di benessere a 360°
+            </strong>
+        </p>
+        </div>
 
-          <label htmlFor="password" className="NuovaPasswordInserita">Ripeti nuova password:</label>
-          <input type="password" id="password" className="input-NuovaPassword" aria-label="password" />
+        <div className='TitoloResetPassword'>
+        <p>RECUPERA PASSWORD</p>
+        </div>
+
+        <div className="RecuperaPassword">
+          <label htmlFor="nuova email" className="NuovaMail">Inserisci email :</label>
+          <input type="email" id="email" className="input-NuovaMail" aria-label="email" />
+
        </div>
 
-       <div className="BottoneResetPassword">
+       <div>
             <Link to="/login">
                 <button type="submit" className="button-ResetPassword">Invia</button>
             </Link>
         </div>
+
+        <TastoIndietro />
 
         </>
 

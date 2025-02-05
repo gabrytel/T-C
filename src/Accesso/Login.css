@@ -27,6 +27,15 @@
     font-size: 16px;
     line-height: 50px;
     cursor: pointer;
+    
+}
+
+.TastoLoginEsperto a:hover
+{
+    background: linear-gradient(to right,rgb(0, 221, 255), rgb(51, 183, 51));
+    color: rgb(0, 0, 0);
+    transform: scale(1.1);
+    border: 1px solid #000000;
 }
 
 .Credenziali
@@ -71,6 +80,13 @@
    
 }
 
+.login-button-cliente:hover
+{
+    background: linear-gradient(to right,rgb(0, 221, 255), rgb(51, 183, 51));
+    color: rgb(0, 0, 0);
+   
+}
+
 
 
 .OppureTasto
@@ -94,6 +110,12 @@
     cursor: pointer;
     margin-top: 20px;
     margin-left: 15px;
+}
+
+.register-button:hover
+{
+    background: linear-gradient(to right,rgb(51, 183, 51), rgb(0, 221, 255));
+    color: rgb(0, 0, 0);
 }
 
 .ForgotPassword

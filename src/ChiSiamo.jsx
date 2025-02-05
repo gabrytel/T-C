@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
+import TastoIndietro from './Componenti/TastoIndietro';
 import './ChiSiamo.css';
 
 function ChiSiamo() 
@@ -29,6 +30,7 @@ function ChiSiamo()
             I clienti possono lasciare report sui progressi e ricevere consigli personalizzati. Il nostro sistema consente di inviare programmi di allenamento, diete e supporto su misura. Con una visione integrata e collaborativa, il nostro obiettivo è supportare ogni aspetto del benessere dell’individuo, favorendo la crescita personale ed il raggiungimento di uno stato di equilibrio e salute completo.
             </p>
         </div>
+        <TastoIndietro />
         </>
     );
 }

@@ -1,0 +1,22 @@
+.tasto-indietro
+{
+    position: fixed;
+    bottom : 20px;
+    left : 20px;
+    background: linear-gradient(to right,rgb(0, 221, 255), rgb(51, 183, 51));
+    border: 2px solid black;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    min-width: 150px;
+    height: 60px;
+    font-size: 15px;
+    padding: 10px 30px;
+}
+
+.tasto-indietro:hover
+{
+    transform: scale(1.05); /* Effetto di zoom  */
+}
