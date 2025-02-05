@@ -7,6 +7,8 @@ import ChiSiamo from './ChiSiamo'
 import Contatti from './Contatti'
 import Esperti from './Esperti'
 import PianiCliente from './PianiCliente'
+import Registrazione from './Registrazione'
+import ResetPassword from './ResetPassword'
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
 
@@ -36,6 +38,12 @@ function App()
 
         {/*"/pianiCliente" è la pagina dei piani cliente*/}
         <Route path="/pianiCliente" element={<PianiCliente />} />
+
+        {/*"/registrazione" è la pagina di registrazione*/}
+        <Route path="/registrazione" element={<Registrazione />} />
+
+        {/*"/resetPassword" è la pagina di reset password*/}
+        <Route path="/resetPassword" element={<ResetPassword />} />
 
   
         

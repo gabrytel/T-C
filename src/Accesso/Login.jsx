@@ -25,11 +25,27 @@ function Login()
           <input type="password" id="password" className="input-field" aria-label="Password" />
     </div>
 
-    <div className='TastoLogin'>
-    {/*creami un tasto che mi porta alla pagina di login*/}
+    <div className="ForgotPassword">
+        <Link to="/resetPassword">Password dimenticata?</Link>
+    </div>
+
+   <div>
     <Link to="/pianiCliente">
       <button className="login-button-cliente">
         Accedi
+      </button>
+    </Link>
+    </div>
+
+    <div className = 'OppureTasto'>
+      Oppure
+    </div> 
+
+
+    <div>
+    <Link to="/registrazione">
+      <button className="register-button">
+        Registrati
       </button>
     </Link>
     </div>

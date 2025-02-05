@@ -1,0 +1,83 @@
+.logoRegistrazione
+{
+    position: fixed;   /* Fissa il logo rispetto alla viewport */
+    top: 20px;         /* Distanza dal bordo superiore */
+    right: 20px;       /* Distanza dal bordo destro */
+    width: 150px;
+    height: 155px;
+    z-index: 1000;     /* Garantisce che il logo rimanga sopra gli altri elementi */
+}
+
+.campo 
+  {
+    margin-bottom: 15px;
+  }
+  
+  .campo label 
+  {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input-DatiRegistrazione 
+  {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+
+
+/* Contenitore generale per form e immagine */
+.container 
+{
+    display: flex;            
+    align-items: flex-start;   
+    gap: 20px;                 /* Spazio orizzontale fra form e immagine */
+    margin: 20px;
+  }
+  
+  /* Form a sinistra */
+  .DatiRegistrazione 
+  {
+    width: 300px;
+    text-align: left;
+    margin-left: 40px;  
+    margin-top: 20px;
+  }
+  
+  /* Immagine a destra */
+  .imgRegistrazione 
+  {
+    width: 500px;
+    height: 380px;
+    z-index: 1000; 
+  }
+  
+  .Registrazione 
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -70px;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+  }
+
+
+.button-DatiRegistrazione
+{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    font-size: 20px;
+}

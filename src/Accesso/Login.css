@@ -1,6 +1,6 @@
 .logoLogin
 {
-    margin-top:-200px;
+    margin-top:-100px;
     width: 390px;
     height: 409px;
     display: block;
@@ -17,7 +17,7 @@
     margin-left: 50px;
     width: 200px;
     height: 50px;
-    background-color: #00d7f8;
+    background: linear-gradient(to right,rgb(0, 221, 255), rgb(51, 183, 51));
     border: none;
     color: rgb(0, 0, 0);
     text-align: center;
@@ -53,7 +53,7 @@
     
 }
 
-.TastoLogin
+.login-button-cliente
 {
     width: 100%;
     background-color: #21c73d;
@@ -64,15 +64,41 @@
     border-radius: 10px;
     display: inline-block;
     font-size: 16px;
-    line-height: 50px;
+    line-height: 30px;
     cursor: pointer;
-    margin-top: 150px;
+    margin-top: 20px;
     margin-left: 15px;
    
 }
 
-.login-button-cliente
+
+
+.OppureTasto
 {
-    background-color: #21c73d;
-    border: none;
+    margin-left: 30px;
+    margin-top: 20px;
 }
+
+.register-button
+{
+    width: 100%;
+    background-color: #2aeeee;
+    border: none;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    display: inline-block;
+    font-size: 16px;
+    line-height: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 15px;
+}
+
+.ForgotPassword
+{
+    margin-left: 30px;
+    margin-top: 150px;
+}
+
