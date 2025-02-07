@@ -9,6 +9,9 @@ import Esperti from './Esperti'
 import PianiCliente from './PianiCliente'
 import Registrazione from './Registrazione'
 import ResetPassword from './ResetPassword'
+import AccessoCoach from './Accesso/AccessoCoach'
+import AccessoNutrizionista from './Accesso/AccessoNutrizionista'
+import AccessoPsicologo from './Accesso/Accessopsicologo'
 
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
@@ -46,7 +49,14 @@ function App()
         {/*"/resetPassword" è la pagina di reset password*/}
         <Route path="/resetPassword" element={<ResetPassword />} />
 
-       
+        {/*"/accessoCoach" è la pagina di accesso per coach*/}
+        <Route path="/accessoCoach" element={<AccessoCoach />} />
+
+        {/*"/accessoNutrizionista" è la pagina di accesso per nutrizionista*/}
+        <Route path="/accessoNutrizionista" element={<AccessoNutrizionista />} />
+
+        {/*"/accessoPsicologo" è la pagina di accesso per psicologo*/}
+        <Route path="/accessoPsicologo" element={<AccessoPsicologo />} />
 
   
         
