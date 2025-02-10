@@ -1,18 +1,19 @@
-
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './accessoCoach.css';
+import TastoIndietro from '../Componenti/TastoIndietro';
 
 function AccessoCoach() {
     const [clienti, setClienti] = useState([]); // Stato per i clienti dal database
 
-    // 🔥 Clienti manuali inseriti direttamente
+    // Clienti manuali inseriti direttamente
     const clientiManuali = [
-        { nome: "Giulia", cognome: "Bianchi", email: "giulia.bianchi@email.com", telefono: "3291234567" },
-        { nome: "Marco", cognome: "Verdi", email: "marco.verdi@email.com", telefono: "3487654321" }
+        { id: 1, nome: "Lucia", cognome: "Petrulli" },
+        { id: 2, nome: "Gabriele", cognome: "Ricci" },
     ];
 
-    // 🔥 Effettua una chiamata API per ottenere i clienti dal database
+    // Effettua una chiamata API per ottenere i clienti dal database
     useEffect(() => {
         axios.get('http://localhost:5000/clienti')
             .then(response => {
@@ -26,7 +27,7 @@ function AccessoCoach() {
     return (
         <>
             <div className="TitoloAccessoCoach">
-                <p>COACH/PERSONAL TRAINER</p>
+                <p>PERSONAL TRAINER</p>
             </div>   
 
             <div>
@@ -35,23 +36,32 @@ function AccessoCoach() {
 
             {/* Lista Clienti */}
             <div className="ListaClienti">
-                <h2>Lista Clienti Registrati</h2>
+                <div className="TitoloListaClienti">
+                    <p>Lista Clienti Registrati</p>
+                </div>
+                
                 <ul>
-                    {/* 🔥 Mostra i clienti manuali */}
-                    {clientiManuali.map((cliente, index) => (
-                        <li key={`manuale-${index}`}>
-                            <strong>{cliente.nome} {cliente.cognome}</strong> - {cliente.email} - {cliente.telefono}
+                    {/* Clienti manuali */}
+                    {clientiManuali.map((cliente) => (
+                        <li key={`manuale-${cliente.id}`}>
+                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
+                                {cliente.nome} {cliente.cognome}
+                            </Link>
                         </li>
                     ))}
 
-                    {/* 🔥 Mostra i clienti dal database */}
-                    {clienti.map((cliente, index) => (
-                        <li key={`db-${index}`}>
-                            <strong>{cliente.nome} {cliente.cognome}</strong> - {cliente.email} - {cliente.telefono}
+                    {/* Clienti dal database */}
+                    {clienti.map((cliente) => (
+                        <li key={`db-${cliente.id}`}>
+                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
+                                {cliente.nome} {cliente.cognome}
+                            </Link>
                         </li>
                     ))}
                 </ul>
             </div>
+
+            <TastoIndietro />
         </>
     );
 }

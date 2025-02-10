@@ -1,6 +1,95 @@
-.logoAccessoPsicologo {
-  width: 100px;
-  height: 100px;
+/* Contenitore principale */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  background-color: #f5f5f5; /* Sfondo chiaro */
+}
+
+/* Titolo */
+.TitoloAccessoPsicologo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
   margin-top: 20px;
-  margin-bottom: 20px;
+  position: relative;
+  text-align: center;
+  display: block;
+}
+
+/* Logo */
+.logoAccessoPsicologo {
+  width: 200px;
+  position: absolute;
+  top: 10px; 
+  right: 50px; 
+}
+
+
+/* Lista Clienti */
+.ListaClienti {
+  position: relative;
+  width: 150%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  left: -90px;
+}
+
+/* Titolo della lista */
+.TitoloListaClienti p {
+  font-size: 22px;
+  color: #222;
+  margin-bottom: 15px;
+}
+
+/* Lista non ordinata */
+.ListaClienti ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Bottoni clienti */
+.cliente-button {
+  display: block;
+  padding: 12px;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+}
+
+.cliente-button:hover {
+  background-color: #00a906;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Bottone Torna Indietro */
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: linear-gradient(to right, rgb(0, 221, 255), rgb(51, 183, 51));
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover {
+  transform: scale(1.1);
 }

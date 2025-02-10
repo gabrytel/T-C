@@ -11,16 +11,20 @@
 }
 
 /* Titolo */
-.TitoloAccessoCoach p {
+.TitoloAccessoCoach {
     font-size: 28px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 20px;
+    margin-top: 50px;
+    position: relative;
+    text-align: center;
+    display: block;
+    margin-left: 40px; /* Sposta il titolo leggermente a destra */
 }
 
 /* Logo */
 .logoAccessoCoach {
-    width: 80px;
+    width: 200px;
     position: absolute;
     top: 20px;
     right: 20px;
@@ -28,27 +32,30 @@
 
 /* Lista Clienti */
 .ListaClienti {
-    width: 60%;
+    width: 100%;
     max-width: 500px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
+    margin-top: 20px;
 }
 
 /* Titolo della lista */
-.ListaClienti h2 {
+.TitoloListaClienti p {
     font-size: 22px;
     color: #222;
     margin-bottom: 15px;
 }
 
-/* Lista */
+/* Stile per il la lista non ordinata */
 .ListaClienti ul {
     list-style: none;
     padding: 0;
+    text-align: center;
 }
+
 
 /* Ogni elemento della lista */
 .ListaClienti li {
@@ -62,18 +69,28 @@
     border-bottom: none;
 }
 
-/* Stile dei link dei clienti */
-.cliente-link {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    display: block;
-    transition: color 0.3s ease, transform 0.2s ease;
-}
-
 /* Hover sui clienti */
 .cliente-link:hover {
     color: #0056b3;
     text-decoration: underline;
+    transform: scale(1.05);
+}
+
+
+/* Stile per i bottoni dei clienti */
+.cliente-button {
+    display: block;
+    padding: 12px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cliente-button:hover {
+    background-color: #00a906;
+    color: white;
     transform: scale(1.05);
 }

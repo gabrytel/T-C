@@ -42,7 +42,7 @@ function Registrazione() {
   return (
     <div className="registrazione-container">
       <img src="/logo.png" alt="logo" className="logoRegistrazione" />
-      <h2 className="Registrazione">Registrazione</h2>
+      <p className="Registrazione">Registrazione</p>
       
       <div className="form-image-container">
         <form className="DatiRegistrazione" onSubmit={handleSubmit}>
