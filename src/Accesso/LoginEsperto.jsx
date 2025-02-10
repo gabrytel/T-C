@@ -11,13 +11,13 @@ function LoginEsperto() {
   const handleLogin = () => {
     switch (idEsperto) {
       case '111':
-        navigate('/coachPersonalTrainer');
+        navigate('/accessoCoach');
         break;
       case '222':
-        navigate('/nutrizionista');
+        navigate('/accessoNutrizionista');
         break;
       case '333':
-        navigate('/psicologo');
+        navigate('/accessoPsicologo');
         break;
       default:
         setErrore('ID non valido. Riprova.');

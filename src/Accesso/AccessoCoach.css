@@ -1,23 +1,79 @@
-.logoAccessoCoach
-{
-    position:absolute;      /* Fissa il logo nella viewport */
-    top: 20px;            /* Distanza dal bordo superiore */
-    right: 20px;          /* Distanza dal bordo destro (oppure usa left se preferisci) */
-    width: 150px;
-    height: 155px;
-    z-index: 1000;
-}
-
-.TitoloAccessoCoach
-{
+/* Contenitore principale */
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: -70px;
-    color: black;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 40px;
-    margin-top: -350px;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+    background-color: #f5f5f5; /* Sfondo chiaro per un look più moderno */
 }
 
+/* Titolo */
+.TitoloAccessoCoach p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Logo */
+.logoAccessoCoach {
+    width: 80px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Lista Clienti */
+.ListaClienti {
+    width: 60%;
+    max-width: 500px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+/* Titolo della lista */
+.ListaClienti h2 {
+    font-size: 22px;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+/* Lista */
+.ListaClienti ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Ogni elemento della lista */
+.ListaClienti li {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+/* Ultimo elemento senza bordo */
+.ListaClienti li:last-child {
+    border-bottom: none;
+}
+
+/* Stile dei link dei clienti */
+.cliente-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    display: block;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover sui clienti */
+.cliente-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+    transform: scale(1.05);
+}
