@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 📌 Connessione a MongoDB
+// Connessione a MongoDB
 mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -88,7 +88,7 @@ app.post('/registrazione/cliente', async (req, res) => {
 });
 
 
-// 📌 API per ottenere tutti i clienti
+// API per ottenere tutti i clienti
 app.get('/clienti', async (req, res) => {
     try {
         const clienti = await Cliente.find();
@@ -99,6 +99,29 @@ app.get('/clienti', async (req, res) => {
     }
 });
 
-// 📌 Avviare il server
+// API per ottenere un cliente specifico per email
+app.get('/clienti/email/:email', async (req, res) => {
+    try {
+        const emailCliente = req.params.email;
+        console.log(`🔍 Ricerca cliente con email: "${emailCliente}"`);
+
+        // Cerca il cliente ignorando maiuscole/minuscole
+        const cliente = await Cliente.findOne({ email: { $regex: `^${emailCliente}$`, $options: "i" } });
+
+        if (!cliente) {
+            console.log("❌ Cliente non trovato!");
+            return res.status(404).json({ error: "Cliente non trovato" });
+        }
+
+        console.log("✅ Cliente trovato:", cliente);
+        res.json(cliente);
+    } catch (error) {
+        console.error("❌ Errore nel recupero del cliente:", error);
+        res.status(500).json({ error: "Errore del server" });
+    }
+});
+
+
+// Avviare il server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server avviato su http://localhost:${PORT}`));

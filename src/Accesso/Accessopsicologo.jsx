@@ -7,11 +7,7 @@ import TastoIndietro from '../Componenti/TastoIndietro';
 function AccessoPsicologo() {
     const [clienti, setClienti] = useState([]); // Stato per i clienti dal database
 
-    // Clienti manuali inseriti direttamente
-    const clientiManuali = [
-        { id: 1, nome: "Lucia", cognome: "Petrulli" },
-        { id: 2, nome: "Gabriele", cognome: "Ricci" },
-    ];
+    
 
     // Effettua una chiamata API per ottenere i clienti dal database
     useEffect(() => {
@@ -41,14 +37,6 @@ function AccessoPsicologo() {
                 </div>
                 
                 <ul>
-                    {/* Clienti manuali */}
-                    {clientiManuali.map((cliente) => (
-                        <li key={`manuale-${cliente.id}`}>
-                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
-                                {cliente.nome} {cliente.cognome}
-                            </Link>
-                        </li>
-                    ))}
 
                     {/* Clienti dal database */}
                     {clienti.map((cliente) => (

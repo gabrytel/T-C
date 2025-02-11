@@ -12,6 +12,7 @@ import ResetPassword from './ResetPassword'
 import AccessoCoach from './Accesso/AccessoCoach'
 import AccessoNutrizionista from './Accesso/AccessoNutrizionista'
 import AccessoPsicologo from './Accesso/Accessopsicologo'
+import ClienteDettaglio from './Accesso/ClienteDettaglio'
 
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
@@ -57,6 +58,9 @@ function App()
 
         {/*"/accessoPsicologo" è la pagina di accesso per psicologo*/}
         <Route path="/accessoPsicologo" element={<AccessoPsicologo />} />
+
+        {/*"/clienteDettaglio" è la pagina di dettaglio del cliente*/}
+        <Route path="/clienteDettaglio/:email" element={<ClienteDettaglio />} />
 
   
         

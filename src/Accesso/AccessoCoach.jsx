@@ -7,12 +7,6 @@ import TastoIndietro from '../Componenti/TastoIndietro';
 function AccessoCoach() {
     const [clienti, setClienti] = useState([]); // Stato per i clienti dal database
 
-    // Clienti manuali inseriti direttamente
-    const clientiManuali = [
-        { id: 1, nome: "Lucia", cognome: "Petrulli" },
-        { id: 2, nome: "Gabriele", cognome: "Ricci" },
-    ];
-
     // Effettua una chiamata API per ottenere i clienti dal database
     useEffect(() => {
         axios.get('http://localhost:5000/clienti')
@@ -41,23 +35,18 @@ function AccessoCoach() {
                 </div>
                 
                 <ul>
-                    {/* Clienti manuali */}
-                    {clientiManuali.map((cliente) => (
-                        <li key={`manuale-${cliente.id}`}>
-                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
-                                {cliente.nome} {cliente.cognome}
-                            </Link>
-                        </li>
-                    ))}
-
-                    {/* Clienti dal database */}
-                    {clienti.map((cliente) => (
-                        <li key={`db-${cliente.id}`}>
-                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
-                                {cliente.nome} {cliente.cognome}
-                            </Link>
-                        </li>
-                    ))}
+                    {/* Mostra solo i clienti ricevuti dal database */}
+                    {clienti.length > 0 ? (
+                        clienti.map((cliente) => (
+                            <li key={cliente.email}>
+                                <Link to={`/clienteDettaglio/${encodeURIComponent(cliente.email)}`} className="cliente-button">
+                                    {cliente.nome} {cliente.cognome}
+                                </Link>
+                            </li>
+                        ))
+                    ) : (
+                        <p>Nessun cliente registrato.</p>
+                    )}
                 </ul>
             </div>
 
