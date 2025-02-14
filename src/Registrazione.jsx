@@ -8,7 +8,7 @@ function Registrazione() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     cf: '', nome: '', cognome: '', email: '', password: '', telefono: '',
-    dataDiNascita: '', genere: '', obiettivo: ''  // 🔥 CORRETTO "genere" (prima era "sesso")
+    dataDiNascita: '', genere: '', obiettivo: ''  
   });
   const [messaggio, setMessaggio] = useState('');
 

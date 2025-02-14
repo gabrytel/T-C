@@ -1,12 +1,113 @@
-.cliente-dettaglio
-{
-    margin: 0 auto;
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #000;
-    border-radius: 10px;
-    background-color: #f0f0f0;
+/* Stile generale */
+body {
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Layout principale con form a sinistra e foto a destra */
+.cliente-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Contenitore sinistra - Form */
+.cliente-form {
+  flex: 1;
+  max-width: 60%;
 }
 
 
+.camera-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #eee;
+  padding: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
 
+/* Dettagli cliente */
+.cliente-dettaglio {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
+}
+
+.cliente-dettaglio h3 {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.cliente-dettaglio p {
+  color: #444;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+strong {
+  color: #000;
+}
+
+/* Stile per misure mancanti */
+.misure-mancanti {
+  color: red;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+/* Stile obiettivo */
+.cliente-obiettivo {
+  font-style: italic;
+  color: #666;
+}
+
+/* Bottoni */
+.bottoni-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+button {
+  border: 2px solid #000;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  background: none;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #000;
+  color: #fff;
+}
+
+/* Pulsante Indietro */
+.pulsante-indietro {
+  margin-top: 20px;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+.logoClienteDettaglio
+{
+    position:absolute;      
+    top: 20px;            
+    right: 20px;          
+    width: 150px;
+    height: 155px;
+    z-index: 1000;
+}
