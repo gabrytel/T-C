@@ -36,17 +36,21 @@ function AccessoPsicologo() {
                     <p>Lista Clienti Registrati</p>
                 </div>
                 
+              <div>
                 <ul>
-
-                    {/* Clienti dal database */}
-                    {clienti.map((cliente) => (
-                        <li key={`db-${cliente.id}`}>
-                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
+                {clienti.length > 0 ? (
+                    clienti.map((cliente) => (
+                    <li key={cliente.email}>
+                        <Link to={`/clienteDettaglio/${encodeURIComponent(cliente.email)}`} className="cliente-button">
                                 {cliente.nome} {cliente.cognome}
-                            </Link>
-                        </li>
-                    ))}
+                        </Link> 
+                    </li>
+                    ))
+                    ) : (
+                    <p>Nessun cliente registrato.</p>
+                    )}
                 </ul>
+            </div>
             </div>
 
             <TastoIndietro />

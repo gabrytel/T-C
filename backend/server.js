@@ -121,6 +121,40 @@ app.get('/clienti/email/:email', async (req, res) => {
     }
 });
 
+// API per creare o aggiornare il piano di allenamento
+app.post('/api/creazione-modifica', async (req, res) => {
+    try {
+      // Estraggo email e workoutPlan dal body (inviati dal front-end)
+      const { email, workoutPlan } = req.body;
+  
+      // Verifico che i dati siano presenti
+      if (!email || !workoutPlan) {
+        return res.status(400).json({ error: "Email e workoutPlan sono obbligatori!" });
+      }
+  
+      // Cerco il cliente in base all'email
+      const clienteEsistente = await Cliente.findOne({ email });
+      if (!clienteEsistente) {
+        return res.status(404).json({ error: "Cliente non trovato" });
+      }
+  
+      // Aggiorno il piano di allenamento
+      clienteEsistente.workoutPlan = workoutPlan;
+      await clienteEsistente.save();
+  
+      // Mando in risposta i dati aggiornati
+      return res.status(200).json({
+        message: "✅ Piano di allenamento aggiornato con successo!",
+        workoutPlan: clienteEsistente.workoutPlan,
+      });
+    } catch (error) {
+      console.error("❌ Errore durante la creazione/aggiornamento del piano:", error);
+      res.status(500).json({ error: "Errore del server", dettagli: error.message });
+    }
+  });
+
+
+
 
 // Avviare il server
 const PORT = process.env.PORT || 5000;

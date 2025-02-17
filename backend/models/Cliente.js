@@ -9,7 +9,22 @@ const ClienteSchema = new mongoose.Schema({
     telefono: { type: String, required: true },
     dataDiNascita: { type: String, required: true },
     genere: { type: String, required: true },  
-    obiettivo: { type: String, required: true }
+    obiettivo: { type: String, required: true },
+
+    workoutPlan: {
+        Lunedì: [{
+          esercizio: String,
+          ripetizioni: String
+        }],
+        Mercoledì: [{
+          esercizio: String,
+          ripetizioni: String
+        }],
+        Venerdì: [{
+          esercizio: String,
+          ripetizioni: String
+        }]
+      }
 });
 
 const Cliente = mongoose.model("Cliente", ClienteSchema);

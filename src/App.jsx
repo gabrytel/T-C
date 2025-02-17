@@ -13,6 +13,7 @@ import AccessoCoach from './Accesso/AccessoCoach'
 import AccessoNutrizionista from './Accesso/AccessoNutrizionista'
 import AccessoPsicologo from './Accesso/Accessopsicologo'
 import ClienteDettaglio from './Accesso/ClienteDettaglio'
+import CreazioneModifica from './Accesso/CreazioneModifica'
 
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
@@ -61,6 +62,9 @@ function App()
 
         {/*"/clienteDettaglio" è la pagina di dettaglio del cliente*/}
         <Route path="/clienteDettaglio/:email" element={<ClienteDettaglio />} />
+
+        {/*"/creazioneModifica" è la pagina di creazione o modifica del cliente*/}  
+        <Route path="/creazioneModifica/:email" element={<CreazioneModifica />} />
 
   
         

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import TastoIndietro from "../Componenti/TastoIndietro";
 import "./ClienteDettaglio.css"; // Import del CSS puro
@@ -50,20 +50,27 @@ function ClienteDettaglio() {
         <p><strong>Altezza:</strong> {cliente.altezza} cm</p>
         <p><strong>Peso:</strong> {cliente.peso} kg</p>
 
-        <p>Misure</p>
+        <p><strong>MISURE</strong></p>
         <p><strong>Addome:</strong> {cliente.addome} cm</p>
         <p><strong>Fianchi:</strong> {cliente.fianchi} cm</p>
         <p><strong>Coscia:</strong> {cliente.coscia} cm</p>
 
-        <h3>Obiettivi:</h3>
+        <p><strong>Obiettivi:</strong></p>
         <p className="cliente-obiettivo">{cliente.obiettivo}</p>
       </div>
 
       {/* Pulsanti */}
       <div className="bottoni-container">
         <button className="btn-video">📹 AVVIA VIDEOCHIAMATA</button>
-        <button className="btn-piano">➕ CREA PIANO</button>
-        <button className="btn-modifica">✏️ MODIFICA PIANO</button>
+
+
+        <Link to={`/creazioneModifica/${encodeURIComponent(email)}`}>
+          <button className="btn-piano">➕ CREA PIANO</button>
+        </Link>
+        <Link to={`/creazioneModifica/${encodeURIComponent(email)}`}>
+          <button className="btn-modifica">✏️ MODIFICA PIANO</button>
+        </Link>
+
       </div>
 
       {/* Pulsante Indietro */}

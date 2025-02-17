@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './accessoNutrizionista.css';
+import TastoIndietro from '../Componenti/TastoIndietro'; 
 
 function AccessoNutrizionista() {
-    const [clienti, setClienti] = useState([]); // Stato per i clienti dal database
-    const navigate = useNavigate(); // Hook per navigare indietro
+    const [clienti, setClienti] = useState([]); 
+    const navigate = useNavigate(); 
 
-    // Effettua una chiamata API per ottenere i clienti dal database
+    
     useEffect(() => {
         axios.get('http://localhost:5000/clienti')
             .then(response => {
-                setClienti(response.data); // Salva i clienti dal database
+                setClienti(response.data); 
             })
             .catch(error => {
                 console.error("Errore nel recupero clienti:", error);
@@ -28,31 +29,31 @@ function AccessoNutrizionista() {
                 <img src="/logo.png" alt="logo" className='logoAccessoNutrizionista' />
             </div>
 
-            {/* Lista Clienti */}
+            
             <div className="ListaClienti">
                 <div className="TitoloListaClienti">
                     <p>Lista Clienti Registrati</p>
                 </div>
                 
-                <ul>
-
-
-                    {/* Clienti dal database */}
-                    {clienti.map((cliente) => (
-                        <li key={`db-${cliente.id}`}>
-                            <Link to={`/cliente/${cliente.id}`} className="cliente-button">
-                                {cliente.nome} {cliente.cognome}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+            <div>
+             <ul>
+             {clienti.length > 0 ? (
+                 clienti.map((cliente) => (
+                    <li key={cliente.email}>
+                        <Link to={`/clienteDettaglio/${encodeURIComponent(cliente.email)}`} className="cliente-button">
+                            {cliente.nome} {cliente.cognome}
+                        </Link> 
+                    </li>
+                    ))
+                    ) : (
+                     <p>Nessun cliente registrato.</p>
+            )}
+            </ul>
             </div>
-
-            {/* Bottone Torna Indietro */}
-            <button className="back-button" onClick={() => navigate(-1)}>
-                Torna indietro
-            </button>
+            <TastoIndietro />
+            </div>
         </>
+        
     );
 }
 
