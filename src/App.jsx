@@ -64,7 +64,10 @@ function App()
         <Route path="/clienteDettaglio/:email" element={<ClienteDettaglio />} />
 
         {/*"/creazioneModifica" è la pagina di creazione o modifica del cliente*/}  
-        <Route path="/creazioneModifica/:email" element={<CreazioneModifica />} />
+        <Route path="/creazioneModifica/:email/:idEsperto" element={<CreazioneModifica />} />
+
+        
+
 
   
         

@@ -9,19 +9,26 @@ function LoginEsperto() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    switch (idEsperto) {
-      case '111':
-        navigate('/accessoCoach');
-        break;
-      case '222':
-        navigate('/accessoNutrizionista');
-        break;
-      case '333':
-        navigate('/accessoPsicologo');
-        break;
-      default:
-        setErrore('ID non valido. Riprova.');
-        break;
+    if (idEsperto === '111' || idEsperto === '222' || idEsperto === '333') {
+      sessionStorage.setItem("idEsperto", idEsperto); // Salva l'ID esperto
+      console.log("🔹 ID Esperto salvato:", idEsperto);
+
+      switch (idEsperto) {
+        case '111':
+          navigate('/accessoCoach');
+          break;
+        case '222':
+          navigate('/accessoNutrizionista');
+          break;
+        case '333':
+          navigate('/accessoPsicologo');
+          break;
+        default:
+          setErrore('ID non valido. Riprova.');
+          break;
+      }
+    } else {
+      setErrore('ID non valido. Inserisci un ID corretto.');
     }
   };
 

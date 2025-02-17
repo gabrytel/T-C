@@ -1,152 +1,88 @@
-/* RESET GENERALE */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-  }
-  
-  /* Imposta l'area di pagina “full width” e min. 100% di altezza */
-  html, body {
-    width: 100%;
-    height: 100%;
-    background: #fff;
-  }
-  
-  /* CONTENITORE PRINCIPALE (puoi usare anche un nome diverso) */
-  .container {
-    /* Occupazione in larghezza su schermi ampi */
-    width: 100%;
-    /* Se vuoi un limite massimo, lascialo pure, altrimenti rimuovi la prossima linea */
-    max-width: 1400px;
-    margin: 0 auto; /* Centra orizzontalmente se usi max-width */
-    padding: 20px;
-    min-height: 100vh; /* Occupa l’altezza completa della finestra */
-    display: flex;
-    flex-direction: column; /* Titolo in alto, contenuto sotto */
-  }
-  
-  /* TITOLO DELLA PAGINA */
-  .title {
-    color: black;
-    font-size: 2.5rem;
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  /* CONTENITORE PER I GIORNI (Lunedì/Mercoledì/Venerdì) */
-  .workout-container {
-    /* Mostra i 3 blocchi affiancati per schermi grandi */
-    display: flex;
-    justify-content: center; /* Centra orizzontalmente le 3 card */
-    align-items: flex-start;
-    flex-wrap: wrap;         /* Permette di andare a capo su schermi piccoli */
-    gap: 40px;               /* Spazio orizzontale/verticale tra i blocchi */
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  /* BLOCCO DI UN SINGOLO GIORNO */
-  .giorno-container {
-    flex: 1 1 280px;    /* Ogni card si restringe fino a ~280px prima di andare a capo */
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border: 2px solid #0077b6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 60vh;   /* Altezza minima, se vuoi */
-  }
-  
-  /* TITOLO DI UN GIORNO (es. "Lunedì") */
-  .giorno-title {
-    width: 100%;
-    text-align: center;
-    background: #0077b6;
-    color: white;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  /* RIGA CON 2 INPUT (Esercizio e Ripetizioni) */
-  .exercise-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-  
-  /* INPUT DEGLI ESERCIZI E DELLE RIPETIZIONI */
-  .exercise-row input {
-    width: 48%;
-    padding: 12px;
-    border: 2px solid #0077b6;
-    border-radius: 8px;
-    font-size: 1rem;
-    text-align: center;
-  }
-  
-  .exercise-row input:focus {
-    outline: none;
-    border-color: #00b4d8;
-  }
-  
-  /* CONTENITORE DEL BOTTONE SALVA */
-  .button-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-  }
-  
-  .submit-button {
-    width: 300px;
-    padding: 15px;
-    background: #0077b6;
-    color: white;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    text-align: center;
-  }
-  
-  .submit-button:hover {
-    background: #00b4d8;
-  }
-  
-  /* MEDIA QUERY: Schermi <= 1024px */
-  @media screen and (max-width: 1024px) {
-    .workout-container {
-      gap: 20px; /* Riduci lo spazio */
-    }
-    .submit-button {
-      width: 60%; /* Bottone più stretto */
-    }
-  }
-  
-  /* MEDIA QUERY: Schermi <= 768px */
-  @media screen and (max-width: 768px) {
-    .workout-container {
-      flex-direction: column; /* i blocchi si dispongono in colonna */
-      align-items: center;
-    }
-    .giorno-container {
-      flex: 1 1 auto;
-      width: 90%;     /* Occupa quasi tutta la larghezza in verticale */
-      margin-bottom: 20px;
-    }
-    .submit-button {
-      width: 80%;     /* Bottone ancora più fluido */
-    }
-  }
-  
+/* Contenitore principale */
+.containerPiano {
+  width: 95%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Titolo */
+.titlePiano {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* Contenitore flessibile per i giorni */
+.workout-container {
+  display: flex;
+  flex-wrap: wrap; /* Permette di andare a capo */
+  justify-content: center; /* Centra i contenuti */
+  gap: 20px; /* Distanza tra i blocchi */
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Stile per ogni giorno */
+.giorno-container {
+  width: 45%; /* Ora ogni giorno prende meno spazio */
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border: 2px solid #00bfff;
+}
+
+/* Titolo del giorno */
+.giorno-title {
+  background: linear-gradient(to right, rgb(0, 221, 255), rgb(51, 183, 51));
+  color: black;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Riga di input */
+.exercise-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: space-between;
+}
+
+/* Input degli esercizi */
+.exercise-row input,
+.exercise-row textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Contenitore del bottone */
+.button-containerPiano {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Bottone "Salva Piano" */
+.submit-button {
+  background: #00bfff;
+  color: black;
+  border: none;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+.submit-button:hover {
+  background: rgba(43, 246, 59, 0.76);
+}

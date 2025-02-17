@@ -121,6 +121,21 @@ app.get('/clienti/email/:email', async (req, res) => {
     }
 });
 
+// API per ottenere il nome dell'esperto
+app.get('/esperti/:id', async (req, res) => {
+    try {
+        const esperto = await Esperto.findById(req.params.id);
+        if (!esperto) {
+            return res.status(404).json({ error: "Esperto non trovato" });
+        }
+        res.json({ ruolo: esperto.ruolo }); // 🔥 Ritorna il ruolo dell'esperto
+    } catch (error) {
+        console.error("❌ Errore nel recupero esperto:", error);
+        res.status(500).json({ error: "Errore del server" });
+    }
+});
+
+
 // API per creare o aggiornare il piano di allenamento
 app.post('/api/creazione-modifica', async (req, res) => {
     try {

@@ -7,6 +7,7 @@ import "./ClienteDettaglio.css"; // Import del CSS puro
 function ClienteDettaglio() {
   const { email } = useParams();
   const [cliente, setCliente] = useState(null);
+  const idEsperto = sessionStorage.getItem("idEsperto"); // 🔥 Recupera ID esperto
 
   useEffect(() => {
     console.log(`🔍 Richiesta dati per cliente con email: ${email}`);
@@ -22,8 +23,6 @@ function ClienteDettaglio() {
       });
   }, [email]);
 
-  
-
   if (!cliente) {
     return (
       <div className="loading-container">
@@ -35,13 +34,11 @@ function ClienteDettaglio() {
   return (
     <div className="cliente-container">
       {/* Icona Fotocamera */}
-      
-        <img src="/fotoProfilo.png" alt="Foto Profilo" className="camera-img" />
-      
-        <div>
-            <img src= "/logo.png" alt="logo"
-            className='logoClienteDettaglio'/>
-        </div>
+      <img src="/fotoProfilo.png" alt="Foto Profilo" className="camera-img" />
+
+      <div>
+        <img src="/logo.png" alt="logo" className="logoClienteDettaglio" />
+      </div>
 
       {/* Dettagli Cliente */}
       <div className="cliente-dettaglio">
@@ -63,14 +60,14 @@ function ClienteDettaglio() {
       <div className="bottoni-container">
         <button className="btn-video">📹 AVVIA VIDEOCHIAMATA</button>
 
-
-        <Link to={`/creazioneModifica/${encodeURIComponent(email)}`}>
+        {/* 🔥 Usa l'idEsperto per costruire il link dinamico */}
+        <Link to={`/creazioneModifica/${encodeURIComponent(email)}/${idEsperto}`}>
           <button className="btn-piano">➕ CREA PIANO</button>
         </Link>
-        <Link to={`/creazioneModifica/${encodeURIComponent(email)}`}>
+
+        <Link to={`/creazioneModifica/${encodeURIComponent(email)}/${idEsperto}`}>
           <button className="btn-modifica">✏️ MODIFICA PIANO</button>
         </Link>
-
       </div>
 
       {/* Pulsante Indietro */}
