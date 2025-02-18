@@ -168,7 +168,27 @@ app.post('/api/creazione-modifica', async (req, res) => {
     }
   });
 
-
+{/*API per eliminare un cliente specifico per email*/}
+app.delete('/cliente/:email', async (req, res) => {
+    try {
+      const emailCliente = req.params.email;
+      
+      // Esegui il soft delete (aggiorna il flag isDeleted)
+        const cliente = await Cliente.findOneAndUpdate(
+            { isDeleted: true },
+            { new: true }
+        );
+      
+      if (!cliente) {
+        return res.status(404).json({ message: "Cliente non trovato" });
+      }
+  
+      res.status(200).json({ message: "Cliente eliminato (soft delete)" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Errore nell'eliminazione del Cliente" });
+    }
+  });
 
 
 // Avviare il server

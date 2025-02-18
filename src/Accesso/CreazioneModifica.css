@@ -1,11 +1,11 @@
 /* Contenitore principale */
 .containerPiano {
-  width: 95%;
+  width: 90%;
   margin: 20px auto;
   text-align: center;
 }
 
-/* Titolo */
+/* Titolo principale */
 .titlePiano {
   font-size: 32px;
   font-weight: bold;
@@ -15,21 +15,28 @@
 /* Contenitore flessibile per i giorni */
 .workout-container {
   display: flex;
-  flex-wrap: wrap; /* Permette di andare a capo */
-  justify-content: center; /* Centra i contenuti */
-  gap: 20px; /* Distanza tra i blocchi */
+  flex-wrap: wrap; /* 🔥 Permette di andare a capo su più righe */
+  justify-content: center; /* 🔥 Centra i contenuti */
+  gap: 25px; /* 🔥 Aumenta lo spazio tra le card */
   width: 100%;
-  padding: 0 20px;
+  padding: 10px;
 }
 
 /* Stile per ogni giorno */
 .giorno-container {
-  width: 45%; /* Ora ogni giorno prende meno spazio */
+  width: calc(33.33% - 20px); /* 🔥 3 giorni per riga su desktop */
+  min-width: 280px; /* 🔥 Mantiene leggibilità su schermi piccoli */
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
   border: 2px solid #00bfff;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Effetto hover sui giorni */
+.giorno-container:hover {
+  transform: scale(1.03);
 }
 
 /* Titolo del giorno */
@@ -48,23 +55,30 @@
 .exercise-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 12px;
-  justify-content: space-between;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
 }
 
-/* Input degli esercizi */
+/* Stile per input e textarea */
 .exercise-row input,
 .exercise-row textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 2px solid #000000;
-  border-radius: 5px;
+  border-radius: 6px;
   text-align: center;
   font-size: 16px;
+  background: #f9f9f9;
 }
 
-/* Contenitore del bottone */
+/* Ridimensiona le textarea per il testo lungo */
+.exercise-row textarea {
+  height: 60px;
+  resize: none;
+}
+
+/* Stile del bottone */
 .button-containerPiano {
   display: flex;
   justify-content: center;
@@ -76,13 +90,52 @@
   background: #00bfff;
   color: black;
   border: none;
-  padding: 15px 35px;
+  padding: 15px 40px;
   font-size: 20px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   border: 2px solid black;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
+/* Effetto hover sul bottone */
 .submit-button:hover {
-  background: rgba(43, 246, 59, 0.76);
+  background: rgba(43, 246, 59, 0.85);
+  transform: scale(1.05);
+}
+
+/* Messaggio di successo */
+.success-message {
+  color: green;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 15px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animazione per il messaggio */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🔥 Adattamenti responsive per schermi più piccoli */
+@media screen and (max-width: 1024px) {
+  .giorno-container {
+    width: calc(50% - 20px); /* 2 giorni per riga su tablet */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .giorno-container {
+    width: 100%; /* 1 giorno per riga su mobile */
+  }
+
+  .workout-container {
+    gap: 15px; /* Diminuisce lo spazio tra i giorni */
+  }
+
+  .submit-button {
+    width: 90%;
+  }
 }

@@ -5,7 +5,7 @@ import "./CreazioneModifica.css";
 
 const CreazioneModifica = () => {
   const { email, idEsperto } = useParams();
-  const idEspertoSession = sessionStorage.getItem("idEsperto"); 
+  const idEspertoSession = sessionStorage.getItem("idEsperto");
 
   console.log("📌 Email ricevuta:", email);
   console.log("📌 ID Esperto ricevuto:", idEsperto);
@@ -23,19 +23,20 @@ const CreazioneModifica = () => {
 
   console.log("📝 Titolo selezionato:", titolo);
 
-  // Definiamo tutti i giorni della settimana
+  // Definizione dei giorni della settimana
   const giorniSettimana = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
 
-  // Stato per il piano, con tutti i giorni della settimana
-  const [workoutPlan, setWorkoutPlan] = useState(() => {
-    return giorniSettimana.reduce((acc, giorno) => {
+  // Stato del piano settimanale
+  const [workoutPlan, setWorkoutPlan] = useState(() =>
+    giorniSettimana.reduce((acc, giorno) => {
       acc[giorno] = Array(6).fill({ esercizio: "", ripetizioni: "", descrizione: "" });
       return acc;
-    }, {});
-  });
+    }, {})
+  );
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     if (email) {
@@ -68,63 +69,83 @@ const CreazioneModifica = () => {
     });
   };
 
+  const handleSave = () => {
+    fetch("http://localhost:5000/api/creazione-modifica", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, workoutPlan }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Errore durante il salvataggio");
+        }
+        return res.json();
+      })
+      .then(() => {
+        setSuccessMessage("✅ Piano salvato con successo!");
+        setTimeout(() => setSuccessMessage(""), 3000);
+      })
+      .catch((err) => {
+        console.error("❌ Errore:", err);
+        setError("Errore nel salvataggio, riprova!");
+      });
+  };
+
   return (
     <div className="containerPiano">
       <p className="titlePiano">{titolo}</p>
 
-      {loading ? (
-        <p className="error-text">Caricamento piano...</p>
-      ) : error ? (
-        <p className="error-text">{error}</p>
-      ) : (
-        <>
-          <div className="workout-container">
-            {giorniSettimana.map((giorno) => (
-              <div key={giorno} className="giorno-container">
-                <p className="giorno-title">{giorno}</p>
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-                {workoutPlan[giorno].map((attivita, index) => (
-                  <div key={index} className="exercise-row">
-                    <input
-                      type="text"
-                      placeholder={
-                        idEspertoFinale === "111"
-                          ? `Esercizio ${index + 1}`
-                          : idEspertoFinale === "222"
-                          ? `Pasto ${index + 1}`
-                          : `Attività ${index + 1}`
-                      }
-                      value={attivita.esercizio}
-                      onChange={(e) => handleChange(giorno, index, "esercizio", e.target.value)}
-                    />
+      <div className="workout-container">
+        {giorniSettimana.map((giorno, index) => (
+          <div key={giorno} className="giorno-container">
+            <p className="giorno-title">{giorno}</p>
 
-                    {idEspertoFinale === "111" && (
-                      <input
-                        type="number"
-                        placeholder="Ripetizioni"
-                        value={attivita.ripetizioni}
-                        onChange={(e) => handleChange(giorno, index, "ripetizioni", e.target.value)}
-                      />
-                    )}
+            {workoutPlan[giorno].map((attivita, i) => (
+              <div key={i} className="exercise-row">
+                <input
+                  type="text"
+                  placeholder={
+                    idEspertoFinale === "111"
+                      ? `Esercizio ${i + 1}`
+                      : idEspertoFinale === "222"
+                      ? `Pasto ${i + 1}`
+                      : `Attività ${i + 1}`
+                  }
+                  value={attivita.esercizio}
+                  onChange={(e) => handleChange(giorno, i, "esercizio", e.target.value)}
+                />
 
-                    {idEspertoFinale === "333" && (
-                      <textarea
-                        placeholder="Note / Esercizi di rilassamento"
-                        value={attivita.descrizione}
-                        onChange={(e) => handleChange(giorno, index, "descrizione", e.target.value)}
-                      />
-                    )}
-                  </div>
-                ))}
+                {idEspertoFinale === "111" && (
+                  <input
+                    type="number"
+                    placeholder="Ripetizioni"
+                    value={attivita.ripetizioni}
+                    onChange={(e) => handleChange(giorno, i, "ripetizioni", e.target.value)}
+                  />
+                )}
+
+                {idEspertoFinale === "333" && (
+                  <textarea
+                    placeholder="Note / Esercizi di rilassamento"
+                    value={attivita.descrizione}
+                    onChange={(e) => handleChange(giorno, i, "descrizione", e.target.value)}
+                  />
+                )}
               </div>
             ))}
           </div>
+        ))}
+      </div>
 
-          <div className="button-containerPiano">
-            <button type="submit" className="submit-button">Salva Piano</button>
-          </div>
-        </>
-      )}
+      <div className="button-containerPiano">
+        <button type="button" className="submit-button" onClick={handleSave}>
+          Salva Piano
+        </button>
+      </div>
+
       <TastoIndietro />
     </div>
   );
