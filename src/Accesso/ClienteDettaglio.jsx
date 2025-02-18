@@ -60,7 +60,7 @@ function ClienteDettaglio() {
       <div className="bottoni-container">
         <button className="btn-video">📹 AVVIA VIDEOCHIAMATA</button>
 
-        {/* 🔥 Usa l'idEsperto per costruire il link dinamico */}
+        {/* Usa l'idEsperto per costruire il link dinamico */}
         <Link to={`/creazioneModifica/${encodeURIComponent(email)}/${idEsperto}`}>
           <button className="btn-piano">➕ CREA PIANO</button>
         </Link>

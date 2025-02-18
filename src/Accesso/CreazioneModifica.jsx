@@ -7,10 +7,7 @@ const CreazioneModifica = () => {
   const { email, idEsperto } = useParams();
   const idEspertoSession = sessionStorage.getItem("idEsperto");
 
-  console.log("📌 Email ricevuta:", email);
-  console.log("📌 ID Esperto ricevuto:", idEsperto);
-  console.log("📌 ID Esperto da sessione:", idEspertoSession);
-
+  // idEspertoFinale = 111 (PT), 222 (Nutri), 333 (Psico)
   const idEspertoFinale = idEsperto || idEspertoSession;
 
   const titoliEsperti = {
@@ -21,12 +18,9 @@ const CreazioneModifica = () => {
 
   const titolo = titoliEsperti[idEspertoFinale?.trim()] || "Professionista";
 
-  console.log("📝 Titolo selezionato:", titolo);
-
-  // Definizione dei giorni della settimana
   const giorniSettimana = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
 
-  // Stato del piano settimanale
+  // Stato iniziale: un piano con 7 giorni x 6 slot
   const [workoutPlan, setWorkoutPlan] = useState(() =>
     giorniSettimana.reduce((acc, giorno) => {
       acc[giorno] = Array(6).fill({ esercizio: "", ripetizioni: "", descrizione: "" });
@@ -37,29 +31,39 @@ const CreazioneModifica = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [noPlanMessage, setNoPlanMessage] = useState("");
 
+  // Al montaggio, carichiamo il piano di quell'esperto
   useEffect(() => {
-    if (email) {
-      fetch(`http://localhost:5000/clienti/email/${encodeURIComponent(email)}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Piano non trovato");
-          }
-          return res.json();
-        })
+    if (email && idEspertoFinale) {
+      fetch(
+        `http://localhost:5000/api/creazione-modifica?email=${encodeURIComponent(email)}&idEsperto=${encodeURIComponent(idEspertoFinale)}`
+      )
+        .then((res) => res.json())
         .then((data) => {
-          console.log("✅ Dati ricevuti:", data);
-          setWorkoutPlan(data.workoutPlan || workoutPlan);
+          if (data.error) {
+            // Es. "Cliente non trovato"
+            setError(data.error);
+          } else if (data.workoutPlan) {
+            // Se c'è un piano, lo carichiamo
+            setWorkoutPlan(data.workoutPlan);
+          } else {
+            // Nessun piano trovato
+            setNoPlanMessage(data.message || "Nessun piano trovato, creane uno nuovo.");
+          }
           setLoading(false);
         })
         .catch((err) => {
           console.error("❌ Errore nel fetch:", err);
-          setError(err.message);
+          setError("Errore nel caricamento");
           setLoading(false);
         });
+    } else {
+      setLoading(false);
     }
-  }, [email]);
+  }, [email, idEspertoFinale]);
 
+  // Gestisce i cambi degli input
   const handleChange = (giorno, index, field, value) => {
     setWorkoutPlan((prevPlan) => {
       const updatedPlan = { ...prevPlan };
@@ -69,21 +73,29 @@ const CreazioneModifica = () => {
     });
   };
 
+  // Salva il piano (POST)
   const handleSave = () => {
+    setError("");
+    setSuccessMessage("");
+    setNoPlanMessage("");
+
     fetch("http://localhost:5000/api/creazione-modifica", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, workoutPlan }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Errore durante il salvataggio");
-        }
-        return res.json();
+      body: JSON.stringify({
+        email,
+        idEsperto: idEspertoFinale,
+        workoutPlan
       })
-      .then(() => {
-        setSuccessMessage("✅ Piano salvato con successo!");
-        setTimeout(() => setSuccessMessage(""), 3000);
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setSuccessMessage("✅ Piano salvato con successo!");
+          setTimeout(() => setSuccessMessage(""), 3000);
+        }
       })
       .catch((err) => {
         console.error("❌ Errore:", err);
@@ -91,18 +103,22 @@ const CreazioneModifica = () => {
       });
   };
 
+  if (loading) {
+    return <p>Caricamento in corso...</p>;
+  }
+
   return (
     <div className="containerPiano">
       <p className="titlePiano">{titolo}</p>
 
-      {successMessage && <p className="success-message">{successMessage}</p>}
       {error && <p className="error-text">{error}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {noPlanMessage && <p className="no-plan-message">{noPlanMessage}</p>}
 
       <div className="workout-container">
-        {giorniSettimana.map((giorno, index) => (
+        {giorniSettimana.map((giorno) => (
           <div key={giorno} className="giorno-container">
             <p className="giorno-title">{giorno}</p>
-
             {workoutPlan[giorno].map((attivita, i) => (
               <div key={i} className="exercise-row">
                 <input
