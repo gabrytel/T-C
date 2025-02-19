@@ -1,33 +1,38 @@
-// models/Cliente.js
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const ClienteSchema = new mongoose.Schema({
   cf: { type: String, required: true },
   nome: { type: String, required: true },
   cognome: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
   telefono: { type: String, required: true },
-  dataDiNascita: { type: String, required: true },
+  dataDiNascita: { type: Date, required: true },
   genere: { type: String, required: true },
-  obiettivo: { type: String, required: true },
-
-  // Tre piani distinti, uno per ciascun tipo di esperto
+  obiettivo: { type: String },
+  
+  // Aggiungi questi se li usi in profilo.jsx
+  eta: { type: Number },
+  altezza: { type: Number },
+  peso: { type: Number },
+  
+  // misure (sub-document)
+  misure: {
+    addome: { type: Number },
+    fianchi: { type: Number },
+    coscia: { type: Number }
+  },
+  
+  // Piani
   piani: {
-    personalTrainer: {
-      type: Object,
-      default: {}
-    },
-    nutrizionista: {
-      type: Object,
-      default: {}
-    },
-    psicologo: {
-      type: Object,
-      default: {}
-    }
-  }
+    personalTrainer: { type: Object },
+    nutrizionista: { type: Object },
+    psicologo: { type: Object }
+  },
+
+  foto: { type: String },
+  isDeleted: { type: Boolean, default: false }
 });
 
-const Cliente = mongoose.model("Cliente", ClienteSchema);
+const Cliente = mongoose.model('Cliente', ClienteSchema);
 export default Cliente;

@@ -11,7 +11,7 @@
 .TastoLoginEsperto a
 {
     position: absolute;
-    top: -10px;   /* Distanza dal bordo superiore */
+    top: -20px;   /* Distanza dal bordo superiore */
     right: 20px; /* Distanza dal bordo destro */
     margin-top: 50px;
     margin-left: 50px;
@@ -41,7 +41,7 @@
 .Credenziali
 {
   position: absolute;
-  left: 42%;
+  left: 620px;
   width: 200px;
   margin-top: -100px;
   background: rgba(255, 255, 255, 0.8);
@@ -51,6 +51,15 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
 }
+
+.error-message {
+    width: 80%;
+    margin: 20px auto;  /* centra l'elemento orizzontalmente */
+    text-align: center; /* centra il testo */
+    color: rgb(0, 0, 0);
+    
+  }
+  
 
 .input-field  /*rappresenta i campi dell'email e della password */
 {
@@ -124,3 +133,10 @@
     margin-top: 150px;
 }
 
+.error-message
+{
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
