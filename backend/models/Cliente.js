@@ -20,7 +20,9 @@ const ClienteSchema = new mongoose.Schema({
   misure: {
     addome: { type: Number },
     fianchi: { type: Number },
-    coscia: { type: Number }
+    coscia: { type: Number },
+    peso: { type: Number },
+    altezza: { type: Number }
   },
   
   // Piani

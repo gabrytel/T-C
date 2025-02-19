@@ -15,6 +15,7 @@ import AccessoPsicologo from './Accesso/Accessopsicologo'
 import ClienteDettaglio from './Accesso/ClienteDettaglio'
 import CreazioneModifica from './Accesso/CreazioneModifica'
 import Profilo from './Profilo'
+import Progressi from './Progressi'
 
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
@@ -69,6 +70,9 @@ function App()
 
         {/*"/profilo" è la pagina del profilo*/}
         <Route path="/profilo" element={<Profilo />} />
+
+        {/*"/progressi" è la pagina dei progressi*/}
+        <Route path="/progressi" element={<Progressi />} />
 
 
 

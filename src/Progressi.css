@@ -1,0 +1,102 @@
+/* Contenitore principale */
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Titolo */
+.progress-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px; 
+    text-align: center;
+    margin-top: -160px;   
+}
+
+/* Form generale */
+.progress-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Riquadro centrale */
+.progress-box {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 500px; 
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Sezione input dentro il riquadro */
+.progress-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* Sezione degli input */
+.progress-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+
+.progress-inputs label {
+    display: grid;
+    grid-template-columns: 180px 1fr 40px; 
+    column-gap: 10px;
+    align-items: center;
+}
+
+.label-text {
+    text-align: right; /* testo etichetta allineato a destra */
+}
+
+
+.input-field {
+    width: 220px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+}
+
+/* Pulsante Salva progressi sotto il riquadro */
+.btn-submit {
+    margin-top: 20px; 
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #218838;
+}
+
+/* Logo in alto a destra */
+.logoProgressi {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    width: 180px;
+    height: auto;
+    z-index: 1000;
+}

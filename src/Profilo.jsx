@@ -1,4 +1,3 @@
-// Profilo.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Profilo.css';
@@ -10,10 +9,7 @@ function Profilo() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // 1) Recupera l'email dal localStorage
     const userEmail = localStorage.getItem("userEmail");
-
-    // 2) Esegui la fetch usando l'email recuperata
     fetch(`http://localhost:5000/api/profilo?email=${userEmail}`)
       .then((response) => {
         if (!response.ok) {
@@ -41,42 +37,43 @@ function Profilo() {
 
   return (
     <div className="profilo-utente-container">
-      {/* Header con titolo a sinistra e pulsante PROGRESSI a destra */}
-      <div className="header-profilo">
-        <p className="header-title">PROFILO UTENTE</p>
-        <div className="header-buttons">
-          <button className="btn-progressi">PROGRESSI &#9998;</button>
-        </div>
-      </div>
-
-      {/* Sezione centrale con info utente a sinistra e icona a destra */}
-      <div className="profilo-content">
+      <img
+        src="/logo.png"
+        alt="logo"
+        className="logoProfilo" 
+      />
+      <p className="profilo-title">PROFILO UTENTE 👤 </p>
+      <div className="profilo-box">
         <div className="profilo-info">
           <p><strong>Nome:</strong> {utente.nome}</p>
           <p><strong>Cognome:</strong> {utente.cognome}</p>
           <p><strong>Genere:</strong> {utente.genere}</p>
           <p><strong>Altezza:</strong> {utente.altezza} cm</p>
           <p><strong>Peso:</strong> {utente.peso} kg</p>
-
           <p><strong>MISURE:</strong></p>
           <p><strong>Addome:</strong> {utente.misure.addome} cm</p>
           <p><strong>Fianchi:</strong> {utente.misure.fianchi} cm</p>
           <p><strong>Coscia:</strong> {utente.misure.coscia} cm</p>
-
-          <p><strong>Obiettivo:</strong> {utente.obiettivo}</p>
+          <p><strong>Obiettivo:</strong> <em>{utente.obiettivo}</em></p>
         </div>
-
+        <div className="profilo-actions">
+          <Link to="/pianiCliente">
+            <button className="btn-vedi-piani">VEDI PIANI</button>
+          </Link>
       </div>
-
-
-      <div className="profilo-actions">
-        {/* Il bottone ora è avvolto in un Link per reindirizzare a /pianiCliente */}
-        <Link to="/pianiCliente">
-          <button className="btn-vedi-piani">VEDI PIANI</button>
+      <TastoIndietro />
+     
+      <div className="top-left-buttons">
+        <Link to="/progressi">
+          <button className="btn-progressi">INSERISCI PROGRESSI 📈</button>
         </Link>
       </div>
-    
-      <TastoIndietro />
+
+      <div className="feedback-button-container">
+        <button className="btn-feedback">INSERISCI FEEDBACK ✔</button>
+      </div>
+
+      </div>
     </div>
   );
 }

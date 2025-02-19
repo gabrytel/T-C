@@ -28,8 +28,8 @@ mongoose
   .then(() => console.log("✅ Connesso a MongoDB"))
   .catch(err => console.error("❌ Errore di connessione a MongoDB:", err));
 
-// 7) Funzione di utilità per normalizzare l'email
-const normalizeEmail = (email) => email.toLowerCase().trim();
+// 7) Funzione di utilità per "normalizzare" l'email (solo trim, senza toLowerCase)
+const normalizeEmail = (email) => email.trim();
 
 
 // ------------------------------------------------------------------
@@ -62,13 +62,12 @@ app.post('/api/login', async (req, res) => {
     }
 
     console.log('✅ Login effettuato con successo per:', normalizedEmail);
-    // Restituisco anche l'email affinché il client possa salvarla in localStorage
     res.status(200).json({ 
       message: "Login effettuato con successo",
       email: normalizedEmail
     });
   } catch (error) {
-    console.error("❌ Errore durante il login:", error);
+    console.error("❌ Errore durante il login:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
@@ -91,7 +90,6 @@ app.post('/registrazione/cliente', async (req, res) => {
       obiettivo
     } = req.body;
 
-    // 1) Validazione campi obbligatori
     if (
       !cf ||
       !nome ||
@@ -106,14 +104,11 @@ app.post('/registrazione/cliente', async (req, res) => {
       return res.status(400).json({ error: "Tutti i campi sono obbligatori!" });
     }
 
-    // 2) Validazione formati
     const cfRegex = /^[A-Z0-9]{16}$/i;
     if (!cfRegex.test(cf)) {
-      return res
-        .status(400)
-        .json({
+      return res.status(400).json({
           error: "Il codice fiscale non è valido. Deve avere 16 caratteri alfanumerici."
-        });
+      });
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -122,39 +117,30 @@ app.post('/registrazione/cliente', async (req, res) => {
     }
 
     if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ error: "La password deve avere almeno 6 caratteri." });
+      return res.status(400).json({ error: "La password deve avere almeno 6 caratteri." });
     }
 
     const telefonoRegex = /^\d{10,}$/;
     if (!telefonoRegex.test(telefono)) {
-      return res
-        .status(400)
-        .json({ error: "Il numero di telefono deve avere almeno 10 cifre." });
+      return res.status(400).json({ error: "Il numero di telefono deve avere almeno 10 cifre." });
     }
 
     const dataRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dataRegex.test(dataDiNascita)) {
-      return res
-        .status(400)
-        .json({ error: "La data di nascita deve essere nel formato YYYY-MM-DD." });
+      return res.status(400).json({ error: "La data di nascita deve essere nel formato YYYY-MM-DD." });
     }
 
     if (!["Maschio", "Femmina", "Altro"].includes(genere)) {
       return res.status(400).json({ error: "Il genere selezionato non è valido." });
     }
 
-    // 3) Normalizzazione email
     email = normalizeEmail(email);
 
-    // 4) Verifica se l'utente esiste già
     const clienteEsistente = await Cliente.findOne({ email });
     if (clienteEsistente) {
       return res.status(400).json({ error: "L'email è già registrata!" });
     }
 
-    // 5) Creazione nuovo cliente
     const nuovoCliente = new Cliente({
       cf,
       nome,
@@ -165,16 +151,12 @@ app.post('/registrazione/cliente', async (req, res) => {
       dataDiNascita,
       genere,
       obiettivo
-      // Se desideri salvare anche 'eta', 'altezza', 'peso' ecc. direttamente qui,
-      // puoi aggiungerli in base a ciò che invii dal front-end.
     });
 
-    // 6) Salvataggio nel DB
     await nuovoCliente.save();
-
     res.status(201).json({ message: "✅ Cliente registrato con successo!" });
   } catch (error) {
-    console.error("❌ Errore durante la registrazione:", error);
+    console.error("❌ Errore durante la registrazione:", error.message);
     if (error.name === "ValidationError") {
       const dettagliErrori = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({ error: "Errore di validazione", dettagli: dettagliErrori });
@@ -188,7 +170,7 @@ app.get('/clienti', async (req, res) => {
     const clienti = await Cliente.find();
     res.json(clienti);
   } catch (error) {
-    console.error("❌ Errore nel recupero clienti:", error);
+    console.error("❌ Errore nel recupero clienti:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
@@ -210,10 +192,11 @@ app.get('/clienti/email/:email', async (req, res) => {
     console.log("✅ Cliente trovato:", cliente);
     res.json(cliente);
   } catch (error) {
-    console.error("❌ Errore nel recupero del cliente:", error);
+    console.error("❌ Errore nel recupero del cliente:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
 
 // ------------------------------------------------------------------
 //      Rotte per la gestione dei piani (separati per tipo di esperto)
@@ -253,7 +236,7 @@ app.get('/api/creazione-modifica', async (req, res) => {
 
     res.json({ workoutPlan: piano });
   } catch (error) {
-    console.error("❌ Errore nel recupero del piano:", error);
+    console.error("❌ Errore nel recupero del piano:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
@@ -276,7 +259,6 @@ app.post('/api/creazione-modifica', async (req, res) => {
       return res.status(404).json({ error: "Cliente non trovato" });
     }
 
-    // Salvataggio del piano in base all'idEsperto
     if (idEsperto === "111") {
       cliente.piani.personalTrainer = workoutPlan;
     } else if (idEsperto === "222") {
@@ -295,10 +277,11 @@ app.post('/api/creazione-modifica', async (req, res) => {
       piani: cliente.piani
     });
   } catch (error) {
-    console.error("❌ Errore durante la creazione/aggiornamento del piano:", error);
+    console.error("❌ Errore durante la creazione/aggiornamento del piano:", error.message);
     res.status(500).json({ error: "Errore del server", dettagli: error.message });
   }
 });
+
 
 // ------------------------------------------------------------------
 //                Altre Rotte (es. eliminazione, ecc.)
@@ -318,10 +301,11 @@ app.delete('/cliente/:email', async (req, res) => {
 
     res.status(200).json({ message: "Cliente eliminato (soft delete)" });
   } catch (error) {
-    console.error("❌ Errore nell'eliminazione del Cliente:", error);
+    console.error("❌ Errore nell'eliminazione del Cliente:", error.message);
     res.status(500).json({ message: "Errore nell'eliminazione del Cliente" });
   }
 });
+
 
 // ------------------------------------------------------------------
 //      Endpoint per recuperare il profilo utente (GET /api/profilo)
@@ -340,27 +324,76 @@ app.get('/api/profilo', async (req, res) => {
       return res.status(404).json({ error: "Profilo non trovato" });
     }
 
-    // Invio i campi necessari per la pagina Profilo
     res.status(200).json({
       nome: cliente.nome,
       cognome: cliente.cognome,
       genere: cliente.genere,
       eta: cliente.eta,
-      altezza: cliente.altezza,
+      altezza: cliente.altezza, // se usi il campo root
       peso: cliente.peso,
       misure: {
         addome: cliente.misure?.addome || null,
         fianchi: cliente.misure?.fianchi || null,
-        coscia: cliente.misure?.coscia || null
+        coscia: cliente.misure?.coscia || null,
+        peso: cliente.misure?.peso || null,
+        altezza: cliente.misure?.altezza || null  // misure.altezza, se salvata qui
       },
       obiettivo: cliente.obiettivo || "",
       foto: cliente.foto || null
     });
   } catch (error) {
-    console.error("❌ Errore durante il recupero del profilo:", error);
+    console.error("❌ Errore durante il recupero del profilo:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
+
+// ------------------------------------------------------------------
+//      Endpoint per salvare i progressi (con altezza inclusa in misure)
+// ------------------------------------------------------------------
+// Endpoint per salvare i progressi (con altezza inclusa in misure)
+app.post('/api/progressi', async (req, res) => {
+  const { email, peso, addome, fianchi, coscia, altezza } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email mancante" });
+  }
+
+  try {
+    const normalizedEmail = normalizeEmail(email);
+    const cliente = await Cliente.findOne({ email: normalizedEmail });
+    
+    if (!cliente) {
+      return res.status(404).json({ error: 'Cliente non trovato' });
+    }
+
+    // Converte i valori in numerico (se non lo sono già)
+    const numPeso    = Number(peso);
+    const numAddome  = Number(addome);
+    const numFianchi = Number(fianchi);
+    const numCoscia  = Number(coscia);
+    const numAltezza = Number(altezza);
+
+    // Aggiorna il sotto-documento "misure" includendo altezza
+    cliente.misure = { 
+      addome: numAddome, 
+      fianchi: numFianchi, 
+      coscia: numCoscia, 
+      altezza: numAltezza 
+    };
+
+    // Aggiorna anche i campi root "peso" e "altezza"
+    cliente.peso = numPeso;
+    cliente.altezza = numAltezza;
+
+    await cliente.save();
+    res.status(200).json({ message: 'Dati progressi salvati correttamente' });
+  } catch (error) {
+    console.error("❌ Errore nel salvataggio dei progressi:", error.message);
+    res.status(500).json({ message: 'Errore nel salvataggio dei dati' });
+  }
+});
+
 
 // ------------------------------------------------------------------
 //                        Avvio del Server

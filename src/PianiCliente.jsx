@@ -11,6 +11,10 @@ function PianiCliente() {
         alt="logo"
         className="logoPianiCliente"
       />
+
+      <div>
+        <p className='titolo-pagina'>Seleziona il tuo piano di benessere!</p>
+      </div>
     {/* Contenitore dei piani */}
       <div className="piani-cliente-container">
         {/* Piano Fitness */}

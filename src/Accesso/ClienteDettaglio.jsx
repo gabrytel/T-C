@@ -52,6 +52,17 @@ function ClienteDettaglio() {
         <p><strong>Fianchi:</strong> {cliente.fianchi} cm</p>
         <p><strong>Coscia:</strong> {cliente.coscia} cm</p>
 
+
+         {/* Sezione Progressi */}
+         <p><strong>Dati Progressi:</strong></p>
+        <div className="cliente-progressi">
+          <p><strong>Peso attuale:</strong> {cliente.progressi?.peso || "N/D"} kg</p>
+          <p><strong>Addome:</strong> {cliente.progressi?.addome || "N/D"} cm</p>
+          <p><strong>Fianchi:</strong> {cliente.progressi?.fianchi || "N/D"} cm</p>
+          <p><strong>Coscia:</strong> {cliente.progressi?.coscia || "N/D"} cm</p>
+          <p><strong>Altezza:</strong> {cliente.progressi?.altezza || "N/D"}</p>
+        </div>
+
         <p><strong>Obiettivi:</strong></p>
         <p className="cliente-obiettivo">{cliente.obiettivo}</p>
       </div>
