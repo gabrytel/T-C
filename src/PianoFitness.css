@@ -1,0 +1,65 @@
+.logoPianoFitness {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    width: 180px;
+    height: auto;
+    z-index: 1000;
+  }
+  
+  .allenamento-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .allenamento-titolo {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .exercises-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: left;
+  }
+  
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* due colonne */
+    gap: 10px; /* ridotto gap */
+  }
+  
+  .day-container {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    padding: 10px;
+  }
+  
+  .day-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .errore-piano {
+    color: red;
+    margin: 10px 0;
+    font-weight: bold;
+  }
+  
+  .exercise-box {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 6px;        /* padding minore */
+    margin-bottom: 6px;
+    font-size: 0.9rem;   /* font più piccolo */
+  }
+  

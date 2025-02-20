@@ -6,7 +6,7 @@ import TastoIndietro from './Componenti/TastoIndietro';
 function PianiCliente() {
   return (
     <div>
-        <img
+      <img
         src="/logo.png"
         alt="logo"
         className="logoPianiCliente"
@@ -15,7 +15,8 @@ function PianiCliente() {
       <div>
         <p className='titolo-pagina'>Seleziona il tuo piano di benessere!</p>
       </div>
-    {/* Contenitore dei piani */}
+
+      {/* Contenitore dei piani */}
       <div className="piani-cliente-container">
         {/* Piano Fitness */}
         <div className="piano-box">
@@ -23,7 +24,9 @@ function PianiCliente() {
           <div className="piano-icona">
             <img src="pianoFitness.png" alt="icona fitness" />
           </div>
-          <button className="vedi-button">VEDI</button>
+          <Link to="/PianoFitness" className="vedi-button">
+            VEDI
+          </Link>
         </div>
 
         {/* Piano Nutrizione */}
@@ -32,7 +35,9 @@ function PianiCliente() {
           <div className="piano-icona">
             <img src="pianoNutrizione.png" alt="icona nutrizione" />
           </div>
-          <button className="vedi-button">VEDI</button>
+          <Link to="/PianoNutrizione" className="vedi-button">
+            VEDI
+          </Link>
         </div>
 
         {/* Piano Benessere della Mente */}
@@ -41,7 +46,9 @@ function PianiCliente() {
           <div className="piano-icona">
             <img src="pianoPsicologo.png" alt="icona benessere mente" />
           </div>
-          <button className="vedi-button">VEDI</button>
+          <Link to="/PianoMente" className="vedi-button">
+            VEDI
+          </Link>
         </div>
 
         {/* Tasto Indietro */}

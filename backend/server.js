@@ -1,25 +1,16 @@
-// server.js
-
-// 1) Import dei pacchetti necessari
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-// 2) Import del modello "Cliente" da Mongoose
-import Cliente from './models/Cliente.js';
+import Cliente from './models/Cliente.js'; // Modello Cliente (personalTrainer: Object)
 
-// 3) Configurazione variabili d'ambiente
 dotenv.config();
 
-// 4) Creazione dell'app Express
 const app = express();
-
-// 5) Middleware per gestire JSON e CORS
 app.use(express.json());
 app.use(cors());
 
-// 6) Connessione a MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -28,41 +19,26 @@ mongoose
   .then(() => console.log("✅ Connesso a MongoDB"))
   .catch(err => console.error("❌ Errore di connessione a MongoDB:", err));
 
-// 7) Funzione di utilità per "normalizzare" l'email (solo trim, senza toLowerCase)
+// Funzione di utilità per "normalizzare" l'email
 const normalizeEmail = (email) => email.trim();
 
-
-// ------------------------------------------------------------------
-//          Endpoint per il login con debug
-// ------------------------------------------------------------------
+/* ------------------------------------------------------------------
+   Endpoint per il LOGIN
+------------------------------------------------------------------ */
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('🔍 Login attempt:', { email, password });
-
     if (!email || !password) {
-      console.log('⚠️ Email o password mancanti');
       return res.status(400).json({ error: "Email e password sono obbligatorie" });
     }
 
     const normalizedEmail = normalizeEmail(email);
-    console.log('🔍 Email normalizzata:', normalizedEmail);
-
     const cliente = await Cliente.findOne({ email: normalizedEmail });
-    console.log('🔍 Cliente trovato:', cliente);
-
-    if (!cliente) {
-      console.log('❌ Cliente non trovato');
+    if (!cliente || cliente.password !== password) {
       return res.status(401).json({ error: "Email o password errati" });
     }
 
-    if (cliente.password !== password) {
-      console.log('❌ Password non corrispondente:', { dbPassword: cliente.password, provided: password });
-      return res.status(401).json({ error: "Email o password errati" });
-    }
-
-    console.log('✅ Login effettuato con successo per:', normalizedEmail);
-    res.status(200).json({ 
+    res.status(200).json({
       message: "Login effettuato con successo",
       email: normalizedEmail
     });
@@ -72,70 +48,26 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-
-// ------------------------------------------------------------------
-//      Rotte di Registrazione e Recupero Cliente
-// ------------------------------------------------------------------
+/* ------------------------------------------------------------------
+   Rotta di registrazione
+------------------------------------------------------------------ */
 app.post('/registrazione/cliente', async (req, res) => {
   try {
     let {
-      cf,
-      nome,
-      cognome,
-      email,
-      password,
-      telefono,
-      dataDiNascita,
-      genere,
-      obiettivo
+      cf, nome, cognome, email, password,
+      telefono, dataDiNascita, genere, obiettivo
     } = req.body;
 
+    // (Esempio di validazioni minime)
     if (
-      !cf ||
-      !nome ||
-      !cognome ||
-      !email ||
-      !password ||
-      !telefono ||
-      !dataDiNascita ||
-      !genere ||
-      !obiettivo
+      !cf || !nome || !cognome || !email ||
+      !password || !telefono || !dataDiNascita ||
+      !genere || !obiettivo
     ) {
       return res.status(400).json({ error: "Tutti i campi sono obbligatori!" });
     }
 
-    const cfRegex = /^[A-Z0-9]{16}$/i;
-    if (!cfRegex.test(cf)) {
-      return res.status(400).json({
-          error: "Il codice fiscale non è valido. Deve avere 16 caratteri alfanumerici."
-      });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: "L'email non è valida." });
-    }
-
-    if (password.length < 6) {
-      return res.status(400).json({ error: "La password deve avere almeno 6 caratteri." });
-    }
-
-    const telefonoRegex = /^\d{10,}$/;
-    if (!telefonoRegex.test(telefono)) {
-      return res.status(400).json({ error: "Il numero di telefono deve avere almeno 10 cifre." });
-    }
-
-    const dataRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dataRegex.test(dataDiNascita)) {
-      return res.status(400).json({ error: "La data di nascita deve essere nel formato YYYY-MM-DD." });
-    }
-
-    if (!["Maschio", "Femmina", "Altro"].includes(genere)) {
-      return res.status(400).json({ error: "Il genere selezionato non è valido." });
-    }
-
     email = normalizeEmail(email);
-
     const clienteEsistente = await Cliente.findOne({ email });
     if (clienteEsistente) {
       return res.status(400).json({ error: "L'email è già registrata!" });
@@ -157,14 +89,13 @@ app.post('/registrazione/cliente', async (req, res) => {
     res.status(201).json({ message: "✅ Cliente registrato con successo!" });
   } catch (error) {
     console.error("❌ Errore durante la registrazione:", error.message);
-    if (error.name === "ValidationError") {
-      const dettagliErrori = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({ error: "Errore di validazione", dettagli: dettagliErrori });
-    }
     res.status(500).json({ error: "Errore del server", dettagli: error.message });
   }
 });
 
+/* ------------------------------------------------------------------
+   Rotta GET /clienti  -> Esempio di recupero di tutti i clienti
+------------------------------------------------------------------ */
 app.get('/clienti', async (req, res) => {
   try {
     const clienti = await Cliente.find();
@@ -175,21 +106,16 @@ app.get('/clienti', async (req, res) => {
   }
 });
 
+/* ------------------------------------------------------------------
+   Rotta GET /clienti/email/:email  -> Recupero singolo cliente
+------------------------------------------------------------------ */
 app.get('/clienti/email/:email', async (req, res) => {
   try {
     const emailCliente = normalizeEmail(req.params.email);
-    console.log(`🔍 Ricerca cliente con email: "${emailCliente}"`);
-
-    const cliente = await Cliente.findOne({
-      email: { $regex: `^${emailCliente}$`, $options: "i" }
-    });
-
+    const cliente = await Cliente.findOne({ email: emailCliente });
     if (!cliente) {
-      console.log("❌ Cliente non trovato!");
       return res.status(404).json({ error: "Cliente non trovato" });
     }
-
-    console.log("✅ Cliente trovato:", cliente);
     res.json(cliente);
   } catch (error) {
     console.error("❌ Errore nel recupero del cliente:", error.message);
@@ -197,14 +123,48 @@ app.get('/clienti/email/:email', async (req, res) => {
   }
 });
 
+/* ------------------------------------------------------------------
+   Rotta GET /api/pianoFitness -> Restituisce il piano personalTrainer come OGGETTO
+------------------------------------------------------------------ */
+app.get('/api/pianoFitness', async (req, res) => {
+  try {
+    const { email } = req.query;
+    if (!email) {
+      return res.status(400).json({ error: "Email mancante" });
+    }
 
-// ------------------------------------------------------------------
-//      Rotte per la gestione dei piani (separati per tipo di esperto)
-// ------------------------------------------------------------------
+    const normalizedEmail = normalizeEmail(email);
+    const cliente = await Cliente.findOne({ email: normalizedEmail });
+    if (!cliente) {
+      return res.status(404).json({ error: "Cliente non trovato" });
+    }
+
+    const pianoFitness = cliente.piani?.personalTrainer;
+    // Se l'oggetto non esiste o è vuoto
+    if (!pianoFitness || Object.keys(pianoFitness).length === 0) {
+      return res.status(200).json({
+        message: "Nessun piano fitness trovato per questo utente.",
+        workoutPlan: null
+      });
+    }
+
+    // Restituisco direttamente l'oggetto
+    return res.status(200).json({
+      message: "Piano fitness trovato con successo!",
+      workoutPlan: pianoFitness
+    });
+  } catch (error) {
+    console.error("❌ Errore nel recupero del piano fitness:", error.message);
+    return res.status(500).json({ error: "Errore del server" });
+  }
+});
+
+/* ------------------------------------------------------------------
+   Rotta GET /api/creazione-modifica -> Legge il piano di uno specifico esperto
+------------------------------------------------------------------ */
 app.get('/api/creazione-modifica', async (req, res) => {
   try {
     let { email, idEsperto } = req.query;
-
     if (!email || !idEsperto) {
       return res.status(400).json({ error: "Email e idEsperto sono obbligatori!" });
     }
@@ -216,7 +176,6 @@ app.get('/api/creazione-modifica', async (req, res) => {
     }
 
     let piano = {};
-
     if (idEsperto === "111") {
       piano = cliente.piani.personalTrainer;
     } else if (idEsperto === "222") {
@@ -227,13 +186,15 @@ app.get('/api/creazione-modifica', async (req, res) => {
       return res.status(400).json({ error: "idEsperto non valido" });
     }
 
-    if (!piano || Object.keys(piano).length === 0) {
+    // Se piano è un oggetto vuoto
+    if (!piano || (typeof piano === 'object' && Object.keys(piano).length === 0)) {
       return res.status(200).json({
         message: "Nessun piano trovato per questo esperto, creane uno nuovo.",
         workoutPlan: null
       });
     }
 
+    // Restituisco l'oggetto
     res.json({ workoutPlan: piano });
   } catch (error) {
     console.error("❌ Errore nel recupero del piano:", error.message);
@@ -241,10 +202,12 @@ app.get('/api/creazione-modifica', async (req, res) => {
   }
 });
 
+/* ------------------------------------------------------------------
+   Rotta POST /api/creazione-modifica -> Crea o aggiorna il piano
+------------------------------------------------------------------ */
 app.post('/api/creazione-modifica', async (req, res) => {
   try {
     let { email, idEsperto, workoutPlan } = req.body;
-
     if (!email || !idEsperto || !workoutPlan) {
       return res
         .status(400)
@@ -252,13 +215,12 @@ app.post('/api/creazione-modifica', async (req, res) => {
     }
 
     email = normalizeEmail(email);
-    console.log("🏋️ Salvataggio workoutPlan per:", email, "Esperto:", idEsperto);
-
     const cliente = await Cliente.findOne({ email });
     if (!cliente) {
       return res.status(404).json({ error: "Cliente non trovato" });
     }
 
+    // Salva il piano come oggetto in base all'esperto
     if (idEsperto === "111") {
       cliente.piani.personalTrainer = workoutPlan;
     } else if (idEsperto === "222") {
@@ -282,10 +244,9 @@ app.post('/api/creazione-modifica', async (req, res) => {
   }
 });
 
-
-// ------------------------------------------------------------------
-//                Altre Rotte (es. eliminazione, ecc.)
-// ------------------------------------------------------------------
+/* ------------------------------------------------------------------
+   Esempio di rotta DELETE (soft delete)
+------------------------------------------------------------------ */
 app.delete('/cliente/:email', async (req, res) => {
   try {
     const emailCliente = normalizeEmail(req.params.email);
@@ -306,10 +267,9 @@ app.delete('/cliente/:email', async (req, res) => {
   }
 });
 
-
-// ------------------------------------------------------------------
-//      Endpoint per recuperare il profilo utente (GET /api/profilo)
-// ------------------------------------------------------------------
+/* ------------------------------------------------------------------
+   Endpoint per recuperare il profilo utente (GET /api/profilo)
+------------------------------------------------------------------ */
 app.get('/api/profilo', async (req, res) => {
   try {
     const { email } = req.query;
@@ -329,14 +289,14 @@ app.get('/api/profilo', async (req, res) => {
       cognome: cliente.cognome,
       genere: cliente.genere,
       eta: cliente.eta,
-      altezza: cliente.altezza, // se usi il campo root
+      altezza: cliente.altezza,
       peso: cliente.peso,
       misure: {
         addome: cliente.misure?.addome || null,
         fianchi: cliente.misure?.fianchi || null,
         coscia: cliente.misure?.coscia || null,
         peso: cliente.misure?.peso || null,
-        altezza: cliente.misure?.altezza || null  // misure.altezza, se salvata qui
+        altezza: cliente.misure?.altezza || null
       },
       obiettivo: cliente.obiettivo || "",
       foto: cliente.foto || null
@@ -347,11 +307,9 @@ app.get('/api/profilo', async (req, res) => {
   }
 });
 
-
-// ------------------------------------------------------------------
-//      Endpoint per salvare i progressi (con altezza inclusa in misure)
-// ------------------------------------------------------------------
-// Endpoint per salvare i progressi (con altezza inclusa in misure)
+/* ------------------------------------------------------------------
+   Endpoint per salvare i progressi (con altezza inclusa in misure)
+------------------------------------------------------------------ */
 app.post('/api/progressi', async (req, res) => {
   const { email, peso, addome, fianchi, coscia, altezza } = req.body;
 
@@ -362,19 +320,18 @@ app.post('/api/progressi', async (req, res) => {
   try {
     const normalizedEmail = normalizeEmail(email);
     const cliente = await Cliente.findOne({ email: normalizedEmail });
-    
     if (!cliente) {
       return res.status(404).json({ error: 'Cliente non trovato' });
     }
 
-    // Converte i valori in numerico (se non lo sono già)
+    // Converte i valori in numerico
     const numPeso    = Number(peso);
     const numAddome  = Number(addome);
     const numFianchi = Number(fianchi);
     const numCoscia  = Number(coscia);
     const numAltezza = Number(altezza);
 
-    // Aggiorna il sotto-documento "misure" includendo altezza
+    // Aggiorna il sotto-documento "misure"
     cliente.misure = { 
       addome: numAddome, 
       fianchi: numFianchi, 
@@ -382,7 +339,7 @@ app.post('/api/progressi', async (req, res) => {
       altezza: numAltezza 
     };
 
-    // Aggiorna anche i campi root "peso" e "altezza"
+    // Aggiorna i campi root
     cliente.peso = numPeso;
     cliente.altezza = numAltezza;
 
@@ -394,9 +351,8 @@ app.post('/api/progressi', async (req, res) => {
   }
 });
 
-
-// ------------------------------------------------------------------
-//                        Avvio del Server
-// ------------------------------------------------------------------
+/* ------------------------------------------------------------------
+   Avvio del server
+------------------------------------------------------------------ */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server avviato su http://localhost:${PORT}`));

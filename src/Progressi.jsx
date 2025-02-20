@@ -59,67 +59,86 @@ function Progressi() {
 
   return (
     <div className="progress-container">
+      {/* Logo in alto a destra (fisso) */}
       <img src="/logo.png" alt="logo" className="logoProgressi" />
+
+      {/* Titolo centrato */}
       <p className="progress-title">DATI PROGRESSI</p>
-      <form onSubmit={handleSubmit} className="progress-form">
-        <div className="progress-box">
-          <div className="progress-content">
-            <div className="progress-inputs">
-              <label>
-                Peso attuale:
-                <input 
-                  type="text" 
-                  name="peso" 
-                  className="input-field" 
-                  value={progressData.peso} 
-                  onChange={handleChange} 
-                /> kg
-              </label>
-              <label>
-                Addome:
-                <input 
-                  type="text" 
-                  name="addome" 
-                  className="input-field" 
-                  value={progressData.addome} 
-                  onChange={handleChange} 
-                /> cm
-              </label>
-              <label>
-                Fianchi:
-                <input 
-                  type="text" 
-                  name="fianchi" 
-                  className="input-field" 
-                  value={progressData.fianchi} 
-                  onChange={handleChange} 
-                /> cm
-              </label>
-              <label>
-                Coscia:
-                <input 
-                  type="text" 
-                  name="coscia" 
-                  className="input-field" 
-                  value={progressData.coscia} 
-                  onChange={handleChange} 
-                /> cm
-              </label>
-              <label>
-                Altezza:
-                <input 
-                  type="text" 
-                  name="altezza" 
-                  className="input-field" 
-                  value={progressData.altezza} 
-                  onChange={handleChange} 
-                /> cm
-              </label>
+
+      {/* Wrapper che contiene form + immagine */}
+      <div className="progress-content-wrapper">
+        
+        {/* Form a sinistra */}
+        <form onSubmit={handleSubmit} className="progress-form">
+          <div className="progress-box">
+            <div className="progress-content">
+              <div className="progress-inputs">
+                <label>
+                  Peso attuale:
+                  <input
+                    type="text"
+                    name="peso"
+                    className="input-field"
+                    value={progressData.peso}
+                    onChange={handleChange}
+                  /> kg
+                </label>
+                <label>
+                  Addome:
+                  <input
+                    type="text"
+                    name="addome"
+                    className="input-field"
+                    value={progressData.addome}
+                    onChange={handleChange}
+                  /> cm
+                </label>
+                <label>
+                  Fianchi:
+                  <input
+                    type="text"
+                    name="fianchi"
+                    className="input-field"
+                    value={progressData.fianchi}
+                    onChange={handleChange}
+                  /> cm
+                </label>
+                <label>
+                  Coscia:
+                  <input
+                    type="text"
+                    name="coscia"
+                    className="input-field"
+                    value={progressData.coscia}
+                    onChange={handleChange}
+                  /> cm
+                </label>
+                <label>
+                  Altezza:
+                  <input
+                    type="text"
+                    name="altezza"
+                    className="input-field"
+                    value={progressData.altezza}
+                    onChange={handleChange}
+                  /> cm
+                </label>
+              </div>
             </div>
           </div>
+
+          {/* Pulsante sotto il box */}
+          <button type="submit" className="btn-submit">
+            Salva progressi
+          </button>
+        </form>
+
+        {/* Immagine a destra */}
+        <div className="progress-image">
+          <img src="/immagine-destra.png" alt="Immagine a destra" />
         </div>
-        <button type="submit" className="btn-submit">Salva progressi</button>
-      </form>
+      </div>
+
       <TastoIndietro />
     </div>
   );

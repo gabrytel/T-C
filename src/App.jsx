@@ -16,6 +16,8 @@ import ClienteDettaglio from './Accesso/ClienteDettaglio'
 import CreazioneModifica from './Accesso/CreazioneModifica'
 import Profilo from './Profilo'
 import Progressi from './Progressi'
+import PianoFitness from './PianoFitness'
+
 
 
 {/*"app.jsx lo fa per tutte le pagine quindi nn bisogna inserirlo nelle altre"*/}
@@ -73,6 +75,11 @@ function App()
 
         {/*"/progressi" è la pagina dei progressi*/}
         <Route path="/progressi" element={<Progressi />} />
+
+        {/*"/pianoFitness" è la pagina del piano fitness*/}
+        <Route path="/pianoFitness" element={<PianoFitness />} />
+
+      
 
 
 
