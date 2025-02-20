@@ -1,0 +1,68 @@
+/* Contenitore principale della pagina */
+.mente-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Stile per il logo (immagine) */
+  .logoPianoMente {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  /* Titolo principale della pagina */
+  .mente-titolo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Contenitore generale per i giorni/attività */
+  .mente-exercises-container {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Griglia (o flex) per i giorni */
+  .days-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  /* Contenitore di ogni singolo giorno */
+  .day-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Titolo del giorno (es: "Lunedì") */
+  .day-title {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  /* Box per singola attività */
+  .exercise-box {
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+  }
+  
+  /* Testo per il messaggio di errore */
+  .errore-piano {
+    color: red;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+  }
+  

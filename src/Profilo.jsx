@@ -4,7 +4,7 @@ import './Profilo.css';
 import TastoIndietro from './Componenti/TastoIndietro';
 
 function Profilo() {
-  const [utente, setUtente] = useState(null);
+  const [cliente, setCliente] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -18,7 +18,7 @@ function Profilo() {
         return response.json();
       })
       .then((data) => {
-        setUtente(data);
+        setCliente(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -37,42 +37,36 @@ function Profilo() {
 
   return (
     <div className="profilo-utente-container">
-      <img
-        src="/logo.png"
-        alt="logo"
-        className="logoProfilo" 
-      />
+      <img src="/logo.png" alt="logo" className="logoProfilo" />
       <p className="profilo-title">PROFILO UTENTE 👤 </p>
       <div className="profilo-box">
         <div className="profilo-info">
-          <p><strong>Nome:</strong> {utente.nome}</p>
-          <p><strong>Cognome:</strong> {utente.cognome}</p>
-          <p><strong>Genere:</strong> {utente.genere}</p>
-          <p><strong>Altezza:</strong> {utente.altezza} cm</p>
-          <p><strong>Peso:</strong> {utente.peso} kg</p>
+          <p><strong>Nome:</strong> {cliente.nome}</p>
+          <p><strong>Cognome:</strong> {cliente.cognome}</p>
+          <p><strong>Genere:</strong> {cliente.genere}</p>
           <p><strong>MISURE:</strong></p>
-          <p><strong>Addome:</strong> {utente.misure.addome} cm</p>
-          <p><strong>Fianchi:</strong> {utente.misure.fianchi} cm</p>
-          <p><strong>Coscia:</strong> {utente.misure.coscia} cm</p>
-          <p><strong>Obiettivo:</strong> <em>{utente.obiettivo}</em></p>
+          <p><strong>Addome:</strong> {cliente.misure?.addome || "N/D"} cm</p>
+          <p><strong>Fianchi:</strong> {cliente.misure?.fianchi || "N/D"} cm</p>
+          <p><strong>Coscia:</strong> {cliente.misure?.coscia || "N/D"} cm</p>
+          <p><strong>Altezza:</strong> {cliente.altezza || "N/D"} cm</p>
+          <p><strong>Peso:</strong> {cliente.peso || "N/D"} kg</p>
+
+          <p><strong>Obiettivo:</strong> <em>{cliente.obiettivo || "N/D"}</em></p>
         </div>
         <div className="profilo-actions">
           <Link to="/pianiCliente">
             <button className="btn-vedi-piani">VEDI PIANI</button>
           </Link>
-      </div>
-      <TastoIndietro />
-     
-      <div className="top-left-buttons">
-        <Link to="/progressi">
-          <button className="btn-progressi">INSERISCI PROGRESSI 📈</button>
-        </Link>
-      </div>
-
-      <div className="feedback-button-container">
-        <button className="btn-feedback">INSERISCI FEEDBACK ✔</button>
-      </div>
-
+        </div>
+        <TastoIndietro />
+        <div className="top-left-buttons">
+          <Link to="/progressi">
+            <button className="btn-progressi">INSERISCI PROGRESSI 📈</button>
+          </Link>
+        </div>
+        <div className="feedback-button-container">
+          <button className="btn-feedback">INSERISCI FEEDBACK ✔</button>
+        </div>
       </div>
     </div>
   );

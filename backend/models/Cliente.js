@@ -11,8 +11,7 @@ const ClienteSchema = new mongoose.Schema({
   genere: { type: String, required: true },
   obiettivo: { type: String },
   
-  // Aggiungi questi se li usi in profilo.jsx
-  eta: { type: Number },
+  // usati in profilo.jsx
   altezza: { type: Number },
   peso: { type: Number },
   

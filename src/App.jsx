@@ -17,6 +17,8 @@ import CreazioneModifica from './Accesso/CreazioneModifica'
 import Profilo from './Profilo'
 import Progressi from './Progressi'
 import PianoFitness from './PianoFitness'
+import PianoMente from './PianoMente'
+import PianoNutrizione from './PianoNutrizione'
 
 
 
@@ -78,6 +80,12 @@ function App()
 
         {/*"/pianoFitness" è la pagina del piano fitness*/}
         <Route path="/pianoFitness" element={<PianoFitness />} />
+
+        {/*"/pianoMente" è la pagina del piano mente*/}
+        <Route path="/pianoMente" element={<PianoMente />} />
+
+        {/*"/pianoNutrizione" è la pagina del piano nutrizione*/}
+        <Route path="/pianoNutrizione" element={<PianoNutrizione />} />
 
       
 

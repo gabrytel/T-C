@@ -270,6 +270,7 @@ app.delete('/cliente/:email', async (req, res) => {
 /* ------------------------------------------------------------------
    Endpoint per recuperare il profilo utente (GET /api/profilo)
 ------------------------------------------------------------------ */
+/* Endpoint per recuperare il profilo utente (GET /api/profilo) */
 app.get('/api/profilo', async (req, res) => {
   try {
     const { email } = req.query;
@@ -291,21 +292,26 @@ app.get('/api/profilo', async (req, res) => {
       eta: cliente.eta,
       altezza: cliente.altezza,
       peso: cliente.peso,
-      misure: {
-        addome: cliente.misure?.addome || null,
-        fianchi: cliente.misure?.fianchi || null,
-        coscia: cliente.misure?.coscia || null,
-        peso: cliente.misure?.peso || null,
-        altezza: cliente.misure?.altezza || null
-      },
       obiettivo: cliente.obiettivo || "",
-      foto: cliente.foto || null
+      foto: cliente.foto || null,
+      
+      // Ritorna "misure"
+      misure: {
+        addome:  cliente.misure?.addome  || null,
+        fianchi: cliente.misure?.fianchi || null,
+        coscia:  cliente.misure?.coscia  || null,
+        peso:    cliente.misure?.peso    || null,
+        altezza: cliente.misure?.altezza || null
+      }
     });
   } catch (error) {
     console.error("❌ Errore durante il recupero del profilo:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
+
+
 
 /* ------------------------------------------------------------------
    Endpoint per salvare i progressi (con altezza inclusa in misure)
@@ -324,23 +330,23 @@ app.post('/api/progressi', async (req, res) => {
       return res.status(404).json({ error: 'Cliente non trovato' });
     }
 
-    // Converte i valori in numerico
+    // Converti i valori a Number
     const numPeso    = Number(peso);
     const numAddome  = Number(addome);
     const numFianchi = Number(fianchi);
     const numCoscia  = Number(coscia);
     const numAltezza = Number(altezza);
 
-    // Aggiorna il sotto-documento "misure"
-    cliente.misure = { 
-      addome: numAddome, 
-      fianchi: numFianchi, 
-      coscia: numCoscia, 
-      altezza: numAltezza 
-    };
+    // SALVA TUTTO in "cliente.misure"
+    // (campo definito nel tuo schema)
+    cliente.misure.addome  = numAddome;
+    cliente.misure.fianchi = numFianchi;
+    cliente.misure.coscia  = numCoscia;
+    cliente.misure.peso    = numPeso;
+    cliente.misure.altezza = numAltezza;
 
-    // Aggiorna i campi root
-    cliente.peso = numPeso;
+    // Se vuoi anche mantenere peso/altezza top-level in sincrono:
+    cliente.peso    = numPeso;
     cliente.altezza = numAltezza;
 
     await cliente.save();
@@ -350,6 +356,10 @@ app.post('/api/progressi', async (req, res) => {
     res.status(500).json({ message: 'Errore nel salvataggio dei dati' });
   }
 });
+
+
+
+
 
 /* ------------------------------------------------------------------
    Avvio del server
