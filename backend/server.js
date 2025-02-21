@@ -34,10 +34,19 @@ app.post('/api/login', async (req, res) => {
 
     const normalizedEmail = normalizeEmail(email);
     const cliente = await Cliente.findOne({ email: normalizedEmail });
-    if (!cliente || cliente.password !== password) {
+
+    // Se il cliente non esiste, la password non coincide, **oppure** è isDeleted=true
+    if (!cliente) {
+      return res.status(401).json({ error: "Email o password errati" });
+    }
+    if (cliente.isDeleted) {
+      return res.status(401).json({ error: "Questo account è disattivato." });
+    }
+    if (cliente.password !== password) {
       return res.status(401).json({ error: "Email o password errati" });
     }
 
+    // Se arriva qui, tutto ok
     res.status(200).json({
       message: "Login effettuato con successo",
       email: normalizedEmail
@@ -47,6 +56,7 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
 
 /* ------------------------------------------------------------------
    Rotta di registrazione
@@ -98,13 +108,15 @@ app.post('/registrazione/cliente', async (req, res) => {
 ------------------------------------------------------------------ */
 app.get('/clienti', async (req, res) => {
   try {
-    const clienti = await Cliente.find();
+    // Trova tutti i clienti che NON hanno isDeleted === true
+    const clienti = await Cliente.find({ isDeleted: false });
     res.json(clienti);
   } catch (error) {
     console.error("❌ Errore nel recupero clienti:", error.message);
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
 
 /* ------------------------------------------------------------------
    Rotta GET /clienti/email/:email  -> Recupero singolo cliente
@@ -246,8 +258,9 @@ app.post('/api/creazione-modifica', async (req, res) => {
 
 /* ------------------------------------------------------------------
    Esempio di rotta DELETE (soft delete)
+   Utilizza il metodo DELETE per impostare il flag "isDeleted" a true.
 ------------------------------------------------------------------ */
-app.delete('/cliente/:email', async (req, res) => {
+app.delete('/cliente/email/:email', async (req, res) => {
   try {
     const emailCliente = normalizeEmail(req.params.email);
     const cliente = await Cliente.findOneAndUpdate(
@@ -270,7 +283,6 @@ app.delete('/cliente/:email', async (req, res) => {
 /* ------------------------------------------------------------------
    Endpoint per recuperare il profilo utente (GET /api/profilo)
 ------------------------------------------------------------------ */
-/* Endpoint per recuperare il profilo utente (GET /api/profilo) */
 app.get('/api/profilo', async (req, res) => {
   try {
     const { email } = req.query;
@@ -286,6 +298,7 @@ app.get('/api/profilo', async (req, res) => {
     }
 
     res.status(200).json({
+      email: cliente.email, // Restituisce anche l'email
       nome: cliente.nome,
       cognome: cliente.cognome,
       genere: cliente.genere,
@@ -294,8 +307,6 @@ app.get('/api/profilo', async (req, res) => {
       peso: cliente.peso,
       obiettivo: cliente.obiettivo || "",
       foto: cliente.foto || null,
-      
-      // Ritorna "misure"
       misure: {
         addome:  cliente.misure?.addome  || null,
         fianchi: cliente.misure?.fianchi || null,
@@ -309,9 +320,6 @@ app.get('/api/profilo', async (req, res) => {
     res.status(500).json({ error: "Errore del server" });
   }
 });
-
-
-
 
 /* ------------------------------------------------------------------
    Endpoint per salvare i progressi (con altezza inclusa in misure)
@@ -338,14 +346,13 @@ app.post('/api/progressi', async (req, res) => {
     const numAltezza = Number(altezza);
 
     // SALVA TUTTO in "cliente.misure"
-    // (campo definito nel tuo schema)
     cliente.misure.addome  = numAddome;
     cliente.misure.fianchi = numFianchi;
     cliente.misure.coscia  = numCoscia;
     cliente.misure.peso    = numPeso;
     cliente.misure.altezza = numAltezza;
 
-    // Se vuoi anche mantenere peso/altezza top-level in sincrono:
+    // Sincronizza anche peso e altezza a livello top-level
     cliente.peso    = numPeso;
     cliente.altezza = numAltezza;
 
@@ -356,10 +363,6 @@ app.post('/api/progressi', async (req, res) => {
     res.status(500).json({ message: 'Errore nel salvataggio dei dati' });
   }
 });
-
-
-
-
 
 /* ------------------------------------------------------------------
    Avvio del server
