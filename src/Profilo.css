@@ -8,6 +8,7 @@
   background-color: white;
   padding-top: 20px;
   position: relative; /* Importante per l'uso di position: absolute nel logo */
+  
 }
 
 /* Titolo in alto */
@@ -115,3 +116,49 @@
 }
 
 
+.dropdown-menu-container {
+  position: absolute; /* o fixed se vuoi fisso in alto a dx nella pagina */
+  top: 40px;          /* distanza dall'alto */
+  right: -270px;        /* distanza dal lato destro */
+  z-index: 999;       /* in modo che il dropdown stia sopra altri elementi */
+}
+
+/* "Pulsante" Menu minimal, stile link */
+.dropdown-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  text-decoration: underline;
+  /* Rimuovi underline se preferisci:
+  text-decoration: none;
+  */
+}
+
+/* Contenuto del dropdown */
+.dropdown-content {
+  position: absolute; 
+  top: 100%;    /* appena sotto il "pulsante" Menu */
+  right: 0;     /* allineato a destra del contenitore */
+  background-color: #f9f9f9;
+  min-width: 120px; /* larghezza minima del box */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;    /* un po’ di spazio verticale */
+  border-radius: 4px; /* arrotonda se vuoi */
+}
+
+/* Singolo item nel dropdown */
+.dropdown-item {
+  display: block;        /* si estende su tutta la larghezza del box */
+  padding: 8px 16px;
+  text-align: left;
+  color: #333;
+  text-decoration: none; /* rimuove underline per i link */
+  cursor: pointer;
+}
+
+/* Hover effect per gli item */
+.dropdown-item:hover {
+  background-color: #eee;
+}

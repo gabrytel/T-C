@@ -65,14 +65,20 @@ function Profilo() {
 
       {/* Dropdown Menu */}
       <div className="dropdown-menu-container">
-        <button onClick={toggleDropdown} className="dropdown-button">Menu</button>
+        <span onClick={toggleDropdown} className="dropdown-button">Menu</span>
         {dropdownOpen && (
           <div className="dropdown-content">
             <Link to="/login" className="dropdown-item">Log out</Link>
-            <button className="dropdown-item" onClick={() => handleDelete(cliente.email)}>Elimina profilo</button>
+            <span
+              className="dropdown-item"
+              onClick={() => handleDelete(cliente.email)}
+            >
+              Elimina profilo
+            </span>
           </div>
         )}
       </div>
+
 
       <div className="profilo-box">
         <div className="profilo-info">
