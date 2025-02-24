@@ -2,6 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import { compare } from 'bcryptjs';
+
+
 
 import Cliente from './models/Cliente.js'; // Modello Cliente (personalTrainer: Object)
 
@@ -35,14 +39,14 @@ app.post('/api/login', async (req, res) => {
     const normalizedEmail = normalizeEmail(email);
     const cliente = await Cliente.findOne({ email: normalizedEmail });
 
-    // Se il cliente non esiste, la password non coincide, **oppure** è isDeleted=true
-    if (!cliente) {
+    // Se il cliente non esiste o è stato disattivato
+    if (!cliente || cliente.isDeleted) {
       return res.status(401).json({ error: "Email o password errati" });
     }
-    if (cliente.isDeleted) {
-      return res.status(401).json({ error: "Questo account è disattivato." });
-    }
-    if (cliente.password !== password) {
+
+    // Confronta la password in chiaro con quella criptata
+    const isMatch = await compare(password, cliente.password);
+    if (!isMatch) {
       return res.status(401).json({ error: "Email o password errati" });
     }
 
@@ -56,6 +60,7 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ error: "Errore del server" });
   }
 });
+
 
 
 /* ------------------------------------------------------------------
@@ -83,12 +88,21 @@ app.post('/registrazione/cliente', async (req, res) => {
       return res.status(400).json({ error: "L'email è già registrata!" });
     }
 
+    //Crittorgrafia (HASHING) della password
+  
+      console.log('Dati ricevuti:', req.body);
+      const salt = await bcrypt.genSalt(10);
+      console.log('Salt generato:', salt);
+      const passwordHash = await bcrypt.hash(password, salt);
+      console.log('Password criptata:', passwordHash);
+
+
     const nuovoCliente = new Cliente({
       cf,
       nome,
       cognome,
       email,
-      password,
+      password: passwordHash, // Password criptata
       telefono,
       dataDiNascita,
       genere,

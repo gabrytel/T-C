@@ -125,15 +125,13 @@
 
 /* "Pulsante" Menu minimal, stile link */
 .dropdown-button {
-  background: none;
-  border: none;
+  background: linear-gradient(to right, rgb(0, 221, 255), rgb(51, 183, 51));;
   font-size: 16px;
-  color: #333;
+  color: #ffffff;
   cursor: pointer;
-  text-decoration: underline;
-  /* Rimuovi underline se preferisci:
   text-decoration: none;
-  */
+  margin-top: -100px;
+
 }
 
 /* Contenuto del dropdown */

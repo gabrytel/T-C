@@ -63,21 +63,26 @@ function Profilo() {
       <img src="/logo.png" alt="logo" className="logoProfilo" />
       <p className="profilo-title">PROFILO UTENTE 👤 </p>
 
-      {/* Dropdown Menu */}
-      <div className="dropdown-menu-container">
-        <span onClick={toggleDropdown} className="dropdown-button">Menu</span>
-        {dropdownOpen && (
-          <div className="dropdown-content">
-            <Link to="/login" className="dropdown-item">Log out</Link>
-            <span
-              className="dropdown-item"
-              onClick={() => handleDelete(cliente.email)}
-            >
-              Elimina profilo
-            </span>
-          </div>
-        )}
-      </div>
+     {/* Dropdown Menu */}
+<div className="dropdown-menu-container">
+  <button onClick={toggleDropdown} className="dropdown-button">
+    MENU
+  </button>
+  {dropdownOpen && (
+    <div className="dropdown-content">
+      <Link to="/login" className="dropdown-item">
+        Log out
+      </Link>
+      <span
+        className="dropdown-item"
+        onClick={() => handleDelete(cliente.email)}
+      >
+        Elimina profilo
+      </span>
+    </div>
+  )}
+</div>
+
 
 
       <div className="profilo-box">
