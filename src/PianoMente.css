@@ -9,9 +9,12 @@
   
   /* Stile per il logo (immagine) */
   .logoPianoMente {
-    width: 120px;
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    width: 180px;
     height: auto;
-    margin-bottom: 20px;
+    z-index: 1000;
   }
   
   /* Titolo principale della pagina */
