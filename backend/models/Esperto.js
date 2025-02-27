@@ -7,4 +7,4 @@ const EspertoSchema = new mongoose.Schema({
 });
 
 const Esperto = mongoose.model("Esperto", EspertoSchema);
-module.exports = Esperto; 
+export default Esperto;

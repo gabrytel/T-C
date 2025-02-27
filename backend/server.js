@@ -4,11 +4,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import { compare } from 'bcryptjs';
+import Cliente from './models/Cliente.js'; 
 
 
-
-import Cliente from './models/Cliente.js'; // Modello Cliente (personalTrainer: Object)
-
+//configurazione della app
 dotenv.config();
 
 const app = express();
@@ -23,7 +22,7 @@ mongoose
   .then(() => console.log("✅ Connesso a MongoDB"))
   .catch(err => console.error("❌ Errore di connessione a MongoDB:", err));
 
-// Funzione di utilità per "normalizzare" l'email
+
 const normalizeEmail = (email) => email.trim();
 
 /* ------------------------------------------------------------------
@@ -39,22 +38,23 @@ app.post('/api/login', async (req, res) => {
     const normalizedEmail = normalizeEmail(email);
     const cliente = await Cliente.findOne({ email: normalizedEmail });
 
-    // Se il cliente non esiste o è stato disattivato
+    
     if (!cliente || cliente.isDeleted) {
       return res.status(401).json({ error: "Email o password errati" });
     }
 
-    // Confronta la password in chiaro con quella criptata
+    // Confronta la password 
     const isMatch = await compare(password, cliente.password);
     if (!isMatch) {
       return res.status(401).json({ error: "Email o password errati" });
     }
 
-    // Se arriva qui, tutto ok
+   
     res.status(200).json({
       message: "Login effettuato con successo",
       email: normalizedEmail
     });
+
   } catch (error) {
     console.error("❌ Errore durante il login:", error.message);
     res.status(500).json({ error: "Errore del server" });
@@ -88,7 +88,7 @@ app.post('/registrazione/cliente', async (req, res) => {
       return res.status(400).json({ error: "L'email è già registrata!" });
     }
 
-    //Crittorgrafia (HASHING) della password
+    //HASHING della password
   
       console.log('Dati ricevuti:', req.body);
       const salt = await bcrypt.genSalt(10);
@@ -102,7 +102,7 @@ app.post('/registrazione/cliente', async (req, res) => {
       nome,
       cognome,
       email,
-      password: passwordHash, // Password criptata
+      password: passwordHash, 
       telefono,
       dataDiNascita,
       genere,
@@ -118,7 +118,7 @@ app.post('/registrazione/cliente', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Rotta GET /clienti  -> Esempio di recupero di tutti i clienti
+   Rotta GET Recupero di tutti i clienti
 ------------------------------------------------------------------ */
 app.get('/clienti', async (req, res) => {
   try {
@@ -133,7 +133,7 @@ app.get('/clienti', async (req, res) => {
 
 
 /* ------------------------------------------------------------------
-   Rotta GET /clienti/email/:email  -> Recupero singolo cliente
+   Rotta GET  Recupero singolo cliente
 ------------------------------------------------------------------ */
 app.get('/clienti/email/:email', async (req, res) => {
   try {
@@ -150,7 +150,7 @@ app.get('/clienti/email/:email', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Rotta GET /api/pianoFitness -> Restituisce il piano personalTrainer come OGGETTO
+   Rotta GET Restituisce il piano FITNESS come OGGETTO
 ------------------------------------------------------------------ */
 app.get('/api/pianoFitness', async (req, res) => {
   try {
@@ -174,7 +174,7 @@ app.get('/api/pianoFitness', async (req, res) => {
       });
     }
 
-    // Restituisco direttamente l'oggetto
+    // Restituisco l'oggetto
     return res.status(200).json({
       message: "Piano fitness trovato con successo!",
       workoutPlan: pianoFitness
@@ -186,7 +186,7 @@ app.get('/api/pianoFitness', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Rotta GET /api/creazione-modifica -> Legge il piano di uno specifico esperto
+   Rotta GET Legge il piano di uno specifico esperto
 ------------------------------------------------------------------ */
 app.get('/api/creazione-modifica', async (req, res) => {
   try {
@@ -229,7 +229,7 @@ app.get('/api/creazione-modifica', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Rotta POST /api/creazione-modifica -> Crea o aggiorna il piano
+   Rotta POST Crea o aggiorna il piano
 ------------------------------------------------------------------ */
 app.post('/api/creazione-modifica', async (req, res) => {
   try {
@@ -246,7 +246,7 @@ app.post('/api/creazione-modifica', async (req, res) => {
       return res.status(404).json({ error: "Cliente non trovato" });
     }
 
-    // Salva il piano come oggetto in base all'esperto
+    // Salvataggio del piano nel database in base all'idEsperto
     if (idEsperto === "111") {
       cliente.piani.personalTrainer = workoutPlan;
     } else if (idEsperto === "222") {
@@ -272,7 +272,6 @@ app.post('/api/creazione-modifica', async (req, res) => {
 
 /* ------------------------------------------------------------------
    Esempio di rotta DELETE (soft delete)
-   Utilizza il metodo DELETE per impostare il flag "isDeleted" a true.
 ------------------------------------------------------------------ */
 app.delete('/cliente/email/:email', async (req, res) => {
   try {
@@ -295,7 +294,7 @@ app.delete('/cliente/email/:email', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Endpoint per recuperare il profilo utente (GET /api/profilo)
+   Endpoint GET per recuperare il profilo utente 
 ------------------------------------------------------------------ */
 app.get('/api/profilo', async (req, res) => {
   try {
@@ -312,7 +311,7 @@ app.get('/api/profilo', async (req, res) => {
     }
 
     res.status(200).json({
-      email: cliente.email, // Restituisce anche l'email
+      email: cliente.email, 
       nome: cliente.nome,
       cognome: cliente.cognome,
       genere: cliente.genere,
@@ -336,7 +335,7 @@ app.get('/api/profilo', async (req, res) => {
 });
 
 /* ------------------------------------------------------------------
-   Endpoint per salvare i progressi (con altezza inclusa in misure)
+   Endpoint POST per salvare i progressi dell'utente
 ------------------------------------------------------------------ */
 app.post('/api/progressi', async (req, res) => {
   const { email, peso, addome, fianchi, coscia, altezza } = req.body;
@@ -352,21 +351,21 @@ app.post('/api/progressi', async (req, res) => {
       return res.status(404).json({ error: 'Cliente non trovato' });
     }
 
-    // Converti i valori a Number
+    // Conversione valori in numeri
     const numPeso    = Number(peso);
     const numAddome  = Number(addome);
     const numFianchi = Number(fianchi);
     const numCoscia  = Number(coscia);
     const numAltezza = Number(altezza);
 
-    // SALVA TUTTO in "cliente.misure"
+    // Salvataggio in "cliente.misure"
     cliente.misure.addome  = numAddome;
     cliente.misure.fianchi = numFianchi;
     cliente.misure.coscia  = numCoscia;
     cliente.misure.peso    = numPeso;
     cliente.misure.altezza = numAltezza;
 
-    // Sincronizza anche peso e altezza a livello top-level
+    
     cliente.peso    = numPeso;
     cliente.altezza = numAltezza;
 
