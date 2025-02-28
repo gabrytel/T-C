@@ -94,7 +94,7 @@ const CreazioneModifica = () => {
           setError(data.error);
         } else {
           setSuccessMessage("✅ Piano salvato con successo!");
-          setTimeout(() => setSuccessMessage(""), 3000);
+          setTimeout(() => setSuccessMessage(""), 6000);
         }
       })
       .catch((err) => {

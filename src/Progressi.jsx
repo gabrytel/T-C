@@ -37,6 +37,7 @@ function Progressi() {
 
     const dataToSend = { ...progressData, email: userEmail };
 
+    //invio dati al server
     try {
       const response = await fetch('http://localhost:5000/api/progressi', {
         method: 'POST',

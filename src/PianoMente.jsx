@@ -61,10 +61,8 @@ function PianoMente() {
               <p className="day-title">{giorno}</p>
               {piano[giorno].map((slot, index) => (
                 <div key={index} className="exercise-box">
-                  {/* Per il piano mente, puoi mostrare l'attività (es. "Attività" o "Esercizio") e eventuali note */}
                   <p>Attività: {slot.esercizio}</p>
-                  {/* Se vuoi non mostrare le note, rimuovi la riga seguente */}
-                  {/* <p>Note: {slot.descrizione}</p> */}
+                  
                 </div>
               ))}
             </div>

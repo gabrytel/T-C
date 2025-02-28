@@ -12,13 +12,16 @@ function Profilo() {
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
     fetch(`http://localhost:5000/api/profilo?email=${userEmail}`)
+  
       .then((response) => {
         if (!response.ok) {
           throw new Error("Errore nel recupero del profilo utente");
         }
         return response.json();
       })
+
       .then((data) => {
+        // DATA è l'oggetto JSON restituito dal server, che contiene i dati del cliente
         setCliente(data);
         setLoading(false);
       })

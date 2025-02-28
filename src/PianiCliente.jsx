@@ -24,6 +24,7 @@ function PianiCliente() {
           <div className="piano-icona">
             <img src="pianoFitness.png" alt="icona fitness" />
           </div>
+          
           <Link to="/PianoFitness" className="vedi-button">
             VEDI
           </Link>

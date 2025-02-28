@@ -19,14 +19,14 @@ function Login() {
       });
 
       if (response.ok) {
-        // 1) Leggi il JSON di risposta
+        // Legge il JSON di risposta
         const data = await response.json();
         
-        // 2) Salva l'email in localStorage
+        // Salva l'email in localStorage
         localStorage.setItem("userEmail", data.email);
 
         console.log('✅ Login riuscito');
-        // 3) Ora puoi navigare al profilo
+       
         navigate('/profilo');
       } else {
         const data = await response.json();
