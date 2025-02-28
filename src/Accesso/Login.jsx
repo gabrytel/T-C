@@ -19,10 +19,10 @@ function Login() {
       });
 
       if (response.ok) {
-        // Legge il JSON di risposta
+        
         const data = await response.json();
         
-        // Salva l'email in localStorage
+        
         localStorage.setItem("userEmail", data.email);
 
         console.log('✅ Login riuscito');

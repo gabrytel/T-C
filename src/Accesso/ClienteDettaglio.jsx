@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import TastoIndietro from "../Componenti/TastoIndietro";
-import "./ClienteDettaglio.css"; // Import del CSS puro
+import "./ClienteDettaglio.css"; 
 
 function ClienteDettaglio() {
   const { email } = useParams();
   const [cliente, setCliente] = useState(null);
-  const idEsperto = sessionStorage.getItem("idEsperto"); // 🔥 Recupera ID esperto
+  const idEsperto = sessionStorage.getItem("idEsperto");
 
   useEffect(() => {
     console.log(`🔍 Richiesta dati per cliente con email: ${email}`);
@@ -64,11 +64,11 @@ function ClienteDettaglio() {
         <p className="cliente-obiettivo">{cliente.obiettivo}</p>
       </div>
 
-      {/* Pulsanti */}
+      
       <div className="bottoni-container">
         <button className="btn-video">📹 AVVIA VIDEOCHIAMATA</button>
 
-        {/* Usa l'idEsperto per costruire il link dinamico */}
+        
         <Link to={`/creazioneModifica/${encodeURIComponent(email)}/${idEsperto}`}>
           <button className="btn-piano">➕ CREA PIANO</button>
         </Link>

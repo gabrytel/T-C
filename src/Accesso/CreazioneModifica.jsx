@@ -7,7 +7,7 @@ const CreazioneModifica = () => {
   const { email, idEsperto } = useParams();
   const idEspertoSession = sessionStorage.getItem("idEsperto");
 
-  // idEspertoFinale = 111 (PT), 222 (Nutri), 333 (Psico)
+  
   const idEspertoFinale = idEsperto || idEspertoSession;
 
   const titoliEsperti = {
@@ -33,7 +33,7 @@ const CreazioneModifica = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [noPlanMessage, setNoPlanMessage] = useState("");
 
-  // Al montaggio, carichiamo il piano di quell'esperto
+  
   useEffect(() => {
     if (email && idEspertoFinale) {
       fetch(
@@ -42,13 +42,13 @@ const CreazioneModifica = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.error) {
-            // Es. "Cliente non trovato"
+            
             setError(data.error);
           } else if (data.workoutPlan) {
-            // Se c'è un piano, lo carichiamo
+           
             setWorkoutPlan(data.workoutPlan);
           } else {
-            // Nessun piano trovato
+            
             setNoPlanMessage(data.message || "Nessun piano trovato, creane uno nuovo.");
           }
           setLoading(false);
