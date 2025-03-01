@@ -16,7 +16,9 @@ app.use(cors());
 
 mongoose
   .connect(process.env.MONGO_URI, {
+    // nuovo metodo per interpretare l’URL di connessione
     useNewUrlParser: true,
+    //sistema per gestire la connessione al database
     useUnifiedTopology: true
   })
   .then(() => console.log("✅ Connesso a MongoDB"))
@@ -73,7 +75,7 @@ app.post('/registrazione/cliente', async (req, res) => {
       telefono, dataDiNascita, genere, obiettivo
     } = req.body;
 
-    // (Esempio di validazioni minime)
+    
     if (
       !cf || !nome || !cognome || !email ||
       !password || !telefono || !dataDiNascita ||
